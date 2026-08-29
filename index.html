@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="lt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Visų Lietuvoje registruotų N03A grupės antiepilepsinių vaistų pardavimai, kompensavimas ir suvartojimas 2017–2026 m.">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%8A%3C/text%3E%3C/svg%3E">
+<title>Antiepilepsiniai vaistai Lietuvoje</title>
+<link rel="stylesheet" href="assets/style.css">
+<style>html{background:#f3f5f8}@media(prefers-color-scheme:dark){html:not([data-theme="light"]){background:#0d0e10}}html[data-theme="dark"]{background:#0d0e10}</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="eyebrow">ATC N03A · antiepilepsiniai vaistai · 2017–2026</div>
+  <h1>Antiepilepsiniai vaistai Lietuvoje</h1>
+  <p class="lede">Kiek kiekvieno preparato pakuočių pateko į Lietuvos rinką, kiek už juos sumokėjo Privalomojo sveikatos draudimo fondas ir patys pacientai, ir kiek jų realiai suvartojama. Viskas iš oficialių VVKT ir VLK atvirų duomenų.</p>
+  <div class="stamp">
+    <span>VVKT · data.gov.lt</span><span>VLK · PSDF ataskaitos</span><span>Duomenys iki 2026-06</span>
+  </div>
+</header>
+
+<div class="kpis" id="kpis"></div>
+
+<section>
+  <h2>Suvartojimas pagal veikliąją medžiagą</h2>
+  <p class="sub">DDD 1000 gyventojų per dieną — tarptautinis vaistų suvartojimo matas. Rodo, kokia gyventojų dalis kasdien vartoja vidutinę palaikomąją dozę. Rodyklės nuspaudžiamos: spustelėk medžiagą, kad ją išjungtum.</p>
+  <div class="bar"><div class="legend" id="leg-s"></div></div>
+  <div class="chart" id="ch-subs"><svg></svg><div class="tip"></div></div>
+  <p class="note"><b>Bendras suvartojimas beveik nekinta.</b> Nuo 2017 m. rodiklis svyruoja siaurame ruože, nors atskirų medžiagų dalys keičiasi: valproatas ir karbamazepinas traukiasi, levetiracetamas ir lamotriginas auga. 2026 m. stulpelis rodo tik pirmą pusmetį, todėl jis natūraliai žemesnis.</p>
+</section>
+
+<section>
+  <h2>Visi preparatai</h2>
+  <p class="sub">Spustelėk stulpelio pavadinimą, kad rikiuotum. Preparato pavadinimas veda į atskirą puslapį su mėnesine istorija.</p>
+  <div class="filterrow">
+    <input id="q" type="search" placeholder="Ieškoti pavadinimo, medžiagos ar ATC kodo" aria-label="Paieška">
+    <select id="subsel" aria-label="Veiklioji medžiaga"><option value="">Visos veikliosios medžiagos</option></select>
+    <span class="count" id="count"></span>
+  </div>
+  <div class="tablewrap"><table class="data" id="tbl-brands"><thead><tr>
+    <th class="l sortable" data-k="name">Preparatas</th>
+    <th class="l sortable" data-k="sub">Veiklioji medžiaga</th>
+    <th class="l">ATC</th>
+    <th class="sortable" data-k="y25">Pakuotės 2025</th>
+    <th class="sortable" data-k="tot">Pakuotės 2017–2026</th>
+    <th class="sortable" data-k="psdf">PSDF 2025, €</th>
+    <th class="sortable" data-k="prie">Priemokos 2025, €</th>
+    <th class="sortable" data-k="rec">Receptai 2025</th>
+    <th class="l">Tiekimas</th>
+  </tr></thead><tbody></tbody></table></div>
+</section>
+
+<section>
+  <h2>Registruota, bet neparduodama</h2>
+  <p class="sub">Šie prekiniai pavadinimai turi galiojančias arba turėjo registracijas Lietuvoje, tačiau VVKT pardavimų duomenyse 2017–2026 m. neturi nė vienos parduotos pakuotės. Registracija dar nereiškia, kad vaistas pasiekia pacientą.</p>
+  <div class="cards" id="unsold"></div>
+</section>
+
+<footer>
+  <hr class="hr">
+  <h3>Metodika</h3>
+  <ul>
+    <li><b>Pakuotės</b> — VVKT atvirų duomenų rinkinys „Vaistinių preparatų pakuočių pardavimai“ (mėnesiniai didmeninio platinimo duomenys nuo 2017 m.). Rinkinyje nėra prekinio pavadinimo, tik bendrinis, todėl preparatai atrinkti pagal VVKT registracijos identifikatorius (<code>vid</code>) ir susieti su VAPRIS registru. 2017–2018 m. eilutėse bendrinio pavadinimo lauke įrašyti prekiniai pavadinimai — tie metai surinkti atskirai pagal registracijos ID.</li>
+    <li><b>Eurai</b> — VLK „PSDF biudžeto išlaidų kompensuojamiesiems vaistams ir MPP pagal jų pavadinimus“ ataskaitos (2022–2025 m. ir 2026 m. I ketvirtis). Eilutės susietos su registracijomis pagal nacionalinės pakuotės identifikatorių, ne pagal pavadinimą. Tai tik kompensuojamoji apyvarta — pakuočių skaičiai apima ir nekompensuojamą.</li>
+    <li><b>DDD</b> (nustatytoji paros dozė) apskaičiuota iš stiprumo ir pakuotės dydžio, dalijant iš PSO normos; normos paimtos iš VVKT rinkinio „Vaistinių preparatų vartojimo ir sudėties parametrai“. Rodiklis 1000 gyventojų per dieną naudoja Valstybės duomenų agentūros nuolatinių gyventojų skaičių metų pradžioje. Kontrolė: 2025 m. visos N03A grupės rodiklis pagal šį skaičiavimą — 7,48, VVKT skelbia 7,69 (skirtumas 2,7 %). Brivaracetamui, cenobamatui ir kanabidioliui PSO DDD nėra nustatyta, todėl jie į rodiklį neįskaičiuoti.</li>
+    <li><b>Pacientų skaičius</b> nesumuojamas per stiprumus ar preparatus — tas pats žmogus gali gauti kelis.</li>
+    <li>2026 m. duomenys nepilni: pakuotės — iki birželio, eurai — I ketvirtis.</li>
+  </ul>
+  <h3>Šaltiniai</h3>
+  <ul>
+    <li><a href="https://data.gov.lt/datasets/2941/" target="_blank" rel="noopener">data.gov.lt — Vaistinių preparatų pakuočių pardavimai (VVKT)</a></li>
+    <li><a href="https://data.gov.lt/datasets/3802/" target="_blank" rel="noopener">data.gov.lt — Vaistinių preparatų vartojimo ir sudėties parametrai (VVKT)</a></li>
+    <li><a href="https://vapris.vvkt.lt/vvkt-web/public/medications?atcCode=N03A&amp;showData=true" target="_blank" rel="noopener">VAPRIS — N03A registracijos</a></li>
+    <li><a href="https://ligoniukasa.lrv.lt/lt/veiklos-sritys/gydymo-istaigoms-ir-partneriams/kompensuojamieji-vaistai-ir-medicinos-pagalbos-priemones-2/statistika-1/" target="_blank" rel="noopener">VLK — kompensuojamųjų vaistų statistika</a></li>
+  </ul>
+</footer>
+</div>
+<script>window.PAGE={type:"index",base:""};</script>
+<script src="assets/app.js"></script>
+</body>
+</html>
