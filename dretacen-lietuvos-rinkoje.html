@@ -1,0 +1,590 @@
+<!doctype html>
+<html lang="lt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Dretacen (levetiracetamo) pardavimai ir kompensavimas Lietuvoje 2017-2026 m. pagal VVKT ir VLK duomenis.">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%8A%3C/text%3E%3C/svg%3E">
+<title>Dretacen Lietuvos rinkoje</title>
+<style>
+html{background:#f3f5f8}
+@media (prefers-color-scheme: dark){html:not([data-theme="light"]){background:#0d0e10}}
+html[data-theme="dark"]{background:#0d0e10}
+img{max-width:100%}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap&subset=latin,latin-ext');
+
+:root{
+  color-scheme: light;
+  --plane:#f3f5f8;
+  --surface:#fcfcfd;
+  --ink:#10131a;
+  --ink2:#4e535e;
+  --muted:#878c96;
+  --grid:#e2e5eb;
+  --axis:#c3c8d1;
+  --rule:rgba(16,19,26,.11);
+  --chip:#e8ecf3;
+  --accent:#1c5cab;
+  --s1:#2a78d6;
+  --s2:#eb6834;
+  --s3:#1baf7a;
+  --m1:#1c5cab;
+  --m2:#86b6ef;
+  --shadow:0 1px 2px rgba(16,19,26,.05), 0 8px 24px -16px rgba(16,19,26,.18);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme: dark;
+    --plane:#0d0e10;
+    --surface:#17181b;
+    --ink:#ffffff;
+    --ink2:#c2c6ce;
+    --muted:#878c96;
+    --grid:#26282d;
+    --axis:#383b41;
+    --rule:rgba(255,255,255,.12);
+    --chip:#22242a;
+    --accent:#86b6ef;
+    --s1:#3987e5;
+    --s2:#d95926;
+    --s3:#199e70;
+    --m1:#86b6ef;
+    --m2:#1c5cab;
+    --shadow:none;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme: dark;
+  --plane:#0d0e10;
+  --surface:#17181b;
+  --ink:#ffffff;
+  --ink2:#c2c6ce;
+  --muted:#878c96;
+  --grid:#26282d;
+  --axis:#383b41;
+  --rule:rgba(255,255,255,.12);
+  --chip:#22242a;
+  --accent:#86b6ef;
+  --s1:#3987e5;
+  --s2:#d95926;
+  --s3:#199e70;
+  --m1:#86b6ef;
+  --m2:#2a78d6;
+  --shadow:none;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--plane);
+  color:var(--ink);
+  font:400 15px/1.55 "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1080px;margin:0 auto;padding:36px 22px 72px;display:flex;flex-direction:column;gap:26px}
+
+.eyebrow{
+  font:500 11px/1 "IBM Plex Mono", ui-monospace, monospace;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
+}
+h1{
+  font:700 clamp(30px,5.2vw,46px)/1.04 "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+  letter-spacing:-.015em;margin:10px 0 0;text-wrap:balance;
+}
+.lede{margin:12px 0 0;max-width:62ch;color:var(--ink2);font-size:16.5px}
+.stamp{
+  margin-top:14px;display:flex;flex-wrap:wrap;gap:8px;
+}
+.stamp span{
+  font:500 11.5px/1 "IBM Plex Mono", ui-monospace, monospace;
+  color:var(--ink2);background:var(--chip);border-radius:3px;padding:6px 9px;
+}
+
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+.kpi{
+  background:var(--surface);border:1px solid var(--rule);border-radius:6px;
+  padding:16px 16px 15px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:5px;
+}
+.kpi .k-label{font:500 10.5px/1.2 "IBM Plex Mono", monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.kpi .k-val{font:600 30px/1 "IBM Plex Sans Condensed", sans-serif;letter-spacing:-.01em}
+.kpi .k-note{font-size:12.5px;color:var(--ink2);line-height:1.35}
+
+section{
+  background:var(--surface);border:1px solid var(--rule);border-radius:6px;
+  padding:22px 22px 18px;box-shadow:var(--shadow);
+}
+h2{
+  font:600 20px/1.2 "IBM Plex Sans Condensed", sans-serif;margin:0;letter-spacing:-.005em;
+}
+.sub{margin:6px 0 0;color:var(--ink2);font-size:13.5px;max-width:70ch}
+
+.bar{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin:18px 0 4px}
+.seg{display:inline-flex;background:var(--chip);border-radius:4px;padding:2px}
+.seg button{
+  font:500 12.5px/1 "IBM Plex Sans", sans-serif;color:var(--ink2);
+  background:none;border:0;border-radius:3px;padding:7px 13px;cursor:pointer;
+}
+.seg button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.10)}
+.seg button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+
+.legend{display:flex;flex-wrap:wrap;gap:6px}
+.legend button{
+  display:inline-flex;align-items:center;gap:7px;background:none;border:1px solid transparent;
+  border-radius:4px;padding:5px 9px;cursor:pointer;color:var(--ink2);
+  font:500 12.5px/1 "IBM Plex Sans", sans-serif;
+}
+.legend button:hover{border-color:var(--rule)}
+.legend button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.legend button[aria-pressed="false"]{opacity:.42;text-decoration:line-through}
+.swatch{width:11px;height:11px;border-radius:2.5px;flex:none}
+
+.chart{position:relative;margin-top:6px}
+.chart svg{display:block;width:100%;overflow:visible}
+.tip{
+  position:absolute;pointer-events:none;opacity:0;transition:opacity .1s;
+  background:var(--surface);border:1px solid var(--rule);border-radius:5px;
+  box-shadow:0 4px 20px rgba(0,0,0,.16);padding:9px 11px;min-width:150px;z-index:5;
+}
+.tip .t-head{font:600 12px/1.2 "IBM Plex Sans", sans-serif;color:var(--ink);margin-bottom:6px}
+.tip table{border-collapse:collapse;font-size:12px;width:100%}
+.tip td{padding:1.5px 0}
+.tip td.v{text-align:right;padding-left:14px;font-variant-numeric:tabular-nums;color:var(--ink);font-weight:500}
+.tip td.n{color:var(--ink2)}
+.tip tr.tot td{border-top:1px solid var(--rule);padding-top:4px;color:var(--ink);font-weight:600}
+.tip .dot{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:6px;vertical-align:baseline}
+
+.note{
+  margin-top:16px;border-left:2px solid var(--s2);padding:2px 0 2px 13px;
+  font-size:13.5px;color:var(--ink2);max-width:74ch;
+}
+.note b{color:var(--ink);font-weight:600}
+
+.tablewrap{overflow-x:auto;margin-top:4px}
+table.data{border-collapse:collapse;width:100%;font-size:13px;font-variant-numeric:tabular-nums}
+table.data th,table.data td{padding:8px 10px;text-align:right;white-space:nowrap}
+table.data th:first-child,table.data td:first-child{text-align:left}
+table.data thead th{
+  font:500 10.5px/1.3 "IBM Plex Mono", monospace;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--muted);border-bottom:1px solid var(--axis);vertical-align:bottom;
+}
+table.data tbody tr+tr td{border-top:1px solid var(--grid)}
+table.data tbody tr:hover td{background:var(--chip)}
+table.data td.dim{color:var(--muted)}
+
+footer{color:var(--ink2);font-size:13px;display:flex;flex-direction:column;gap:10px}
+footer h3{font:600 13px/1.3 "IBM Plex Sans", sans-serif;color:var(--ink);margin:0}
+footer ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:5px}
+footer a{color:var(--accent)}
+.hr{height:1px;background:var(--rule);border:0;margin:2px 0}
+
+@media (max-width:640px){
+  .wrap{padding:26px 15px 56px;gap:20px}
+  section{padding:18px 14px 14px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+
+<header>
+  <div class="eyebrow">Levetiracetamas · ATC N03AX14 · Sandoz d.d.</div>
+  <h1>Dretacen Lietuvos rinkoje</h1>
+  <p class="lede">Kiek Dretacen pakuočių didmenininkai pardavė vaistinėms ir gydymo įstaigoms nuo 2017 m., ir kiek už jį sumokėjo PSDF biudžetas bei patys pacientai. Visi skaičiai — iš oficialių VVKT ir VLK duomenų.</p>
+  <div class="stamp">
+    <span>VVKT · data.gov.lt (rinkinys 2941)</span>
+    <span>VLK · PSDF išlaidų ataskaitos</span>
+    <span>Duomenys iki 2026-06</span>
+  </div>
+</header>
+
+<div class="kpis" id="kpis"></div>
+
+<section>
+  <h2>Parduota pakuočių</h2>
+  <p class="sub">Didmeninio platinimo ataskaitos: pakuotės (N30), parduotos vaistinėms ir asmens sveikatos priežiūros įstaigoms. Tai judėjimas į prekybos tinklą, o ne išdavimas pacientams.</p>
+  <div class="bar">
+    <div class="seg" role="group" aria-label="Laikotarpio žingsnis">
+      <button type="button" id="v-year" aria-pressed="true">Metais</button>
+      <button type="button" id="v-month" aria-pressed="false">Mėnesiais</button>
+    </div>
+    <div class="legend" id="leg-u"></div>
+  </div>
+  <div class="chart" id="ch-units"><svg></svg><div class="tip"></div></div>
+  <p class="note"><b>2026 m. — tiekimo pertrūkiai.</b> Nuo vasario pardavimai nutrūksta beveik visiškai: 500 mg pakuotės vasarį ir kovą — 43 ir 41 pakuotė, gegužę ir birželį — nulis. VVKT registre visos Dretacen pakuotės pažymėtos „Netiekiama“, o 500 mg N30 tiekimas atnaujintas tik nuo 2026‑08‑12. 2026 m. stulpelis rodo tik I–VI mėn.</p>
+</section>
+
+<section>
+  <h2>Kompensuota apyvarta</h2>
+  <p class="sub">PSDF biudžeto išlaidos ir pacientų sumokėtos priemokos už kompensuojamuosius Dretacen receptus. Apima tik kompensuojamąją dalį — pardavimų kiekiai aukščiau yra platesni. Skaičius virš stulpelio — pacientų priemokų dalis visoje tų metų apyvartoje.</p>
+  <div class="bar">
+    <div class="legend" id="leg-m"></div>
+  </div>
+  <div class="chart" id="ch-money"><svg></svg><div class="tip"></div></div>
+  <p class="note"><b>Valstybės išlaidos stovi vietoje, pacientų dalis auga.</b> PSDF išlaidos 2022–2024 m. net mažėjo, o pacientų priemokos per tą patį laiką padvigubėjo. 2022 m. pacientai padengė 14,2 % visos Dretacen apyvartos, 2025 m. — 22,8 %, 2026 m. I ketvirtį — jau 32,0 %.</p>
+</section>
+
+<section>
+  <h2>Metinė suvestinė</h2>
+  <p class="sub">Pakuotės — VVKT; eurai — VLK. Tuščias langelis reiškia, kad tų metų VLK ataskaitos šioje apžvalgoje nėra (skelbiamos nuo 2022 m.).</p>
+  <div class="tablewrap"><table class="data" id="tbl"></table></div>
+</section>
+
+<footer>
+  <hr class="hr">
+  <h3>Kaip skaityti šiuos duomenis</h3>
+  <ul>
+    <li><b>Pakuočių skaičiai</b> — VVKT atvirų duomenų rinkinys „Vaistinių preparatų pakuočių pardavimai“. Rinkinyje nėra prekinio pavadinimo, tik bendrinis („Levetiracetamas“), todėl Dretacen atrinktas pagal registro identifikatorius <code>vid</code> 22474 / 22475 / 22477 (Sandoz) ir 28785 (lygiagretus importas, UAB Actiofarma). Rinkinyje nėra jokių kainų ar sumų.</li>
+    <li><b>Lygiagretus importas</b> per visą laikotarpį — 982 pakuotės (2019 m. 48, 2020 m. 930, 2021 m. 4); jos įskaičiuotos į metines sumas, bet grafike atskirai nerodomos. Registracija išregistruota.</li>
+    <li><b>Eurai</b> — VLK „PSDF biudžeto išlaidų kompensuojamiesiems vaistams ir MPP pagal jų pavadinimus“ ataskaitos (XLSX), eilutės pagal nacionalinės pakuotės ID 1063819 / 1063826 / 1063839. Šie ID sutampa su VVKT registro pakuočių ID — sąsaja patikrinta.</li>
+    <li><b>Pacientų skaičius</b> nesumuojamas per stiprumus: tas pats žmogus gali gauti kelis stiprumus, todėl lentelėje jo nėra.</li>
+    <li>2026 m. duomenys nepilni: pakuotės — iki birželio, eurai — I ketvirtis.</li>
+  </ul>
+  <h3>Šaltiniai</h3>
+  <ul>
+    <li><a href="https://data.gov.lt/datasets/2941/" target="_blank" rel="noopener">data.gov.lt — Vaistinių preparatų pakuočių pardavimai (VVKT)</a></li>
+    <li><a href="https://vapris.vvkt.lt/vvkt-web/public/medications/view/22475" target="_blank" rel="noopener">VAPRIS — Dretacen 500 mg registro įrašas</a></li>
+    <li><a href="https://ligoniukasa.lrv.lt/lt/veiklos-sritys/gydymo-istaigoms-ir-partneriams/kompensuojamieji-vaistai-ir-medicinos-pagalbos-priemones-2/statistika-1/" target="_blank" rel="noopener">VLK — kompensuojamųjų vaistų statistika</a></li>
+  </ul>
+</footer>
+
+</div>
+
+<script>
+(function(){
+"use strict";
+
+/* ---------- duomenys ---------- */
+const MONTHS = ["2017-01","2017-02","2017-03","2017-04","2017-05","2017-06","2017-07","2017-08","2017-09","2017-10","2017-11","2017-12","2018-01","2018-02","2018-03","2018-04","2018-05","2018-06","2018-07","2018-08","2018-09","2018-10","2018-11","2018-12","2019-01","2019-02","2019-03","2019-04","2019-05","2019-06","2019-07","2019-08","2019-09","2019-10","2019-11","2019-12","2020-01","2020-02","2020-03","2020-04","2020-05","2020-06","2020-07","2020-08","2020-09","2020-10","2020-11","2020-12","2021-01","2021-02","2021-03","2021-04","2021-05","2021-06","2021-07","2021-08","2021-09","2021-10","2021-11","2021-12","2022-01","2022-02","2022-03","2022-04","2022-05","2022-06","2022-07","2022-08","2022-09","2022-10","2022-11","2022-12","2023-01","2023-02","2023-03","2023-04","2023-05","2023-06","2023-07","2023-08","2023-09","2023-10","2023-11","2023-12","2024-01","2024-02","2024-03","2024-04","2024-05","2024-06","2024-07","2024-08","2024-09","2024-10","2024-11","2024-12","2025-01","2025-02","2025-03","2025-04","2025-05","2025-06","2025-07","2025-08","2025-09","2025-10","2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05","2026-06"];
+const S250 = [284,203,323,314,372,334,423,453,598,502,492,527,516,450,609,473,477,535,188,145,114,435,572,586,147,92,202,525,515,461,515,402,704,730,465,782,236,866,882,486,558,594,621,903,800,857,735,862,683,802,743,815,818,806,746,916,814,795,797,913,927,996,973,968,1110,1153,932,1215,270,677,1528,1266,1303,982,1277,1071,1246,1208,1375,1242,1475,1274,1304,1274,1563,1134,1404,1504,1926,1248,1574,1078,957,1958,1497,351,1354,1954,1582,1422,1592,1712,1403,1482,1755,1581,0,1691,1781,0,0,0,0,1790];
+const S500 = [1019,1028,1280,1047,1235,1363,1424,1551,1724,1462,1561,1729,1785,1542,2010,2074,1857,1818,1935,2245,2511,2558,2338,2457,2440,2061,2933,2590,2705,1367,3374,1989,566,4933,2832,2231,1897,3563,3580,3133,2464,3199,3155,3613,2703,3736,2908,3213,3376,3045,3484,3343,3180,3409,3730,3048,3505,3607,3493,3738,3651,3211,4075,4007,4007,3767,3531,4225,4281,4126,4238,4206,4545,4186,5211,4223,4862,4384,4567,4940,4865,5005,4840,4599,5050,4691,4941,5256,6464,5484,5262,5067,5290,5610,5372,5493,5455,4721,5455,5422,5735,5478,5742,5115,6222,6518,5458,6491,6268,43,41,5632,0,0];
+const S1000= [653,662,695,526,662,659,889,763,769,875,1067,769,988,743,955,930,991,949,886,967,981,1281,1162,1048,1212,999,1261,1166,1447,1233,1182,1138,1282,1326,1325,1296,1438,1286,950,1693,1305,1222,1447,1672,2001,1454,1284,1367,1356,1224,1521,1567,1308,1437,1425,1432,1449,1525,1516,1664,1430,1540,1573,1591,1678,1685,1554,1614,1984,1613,1524,1812,1749,826,1929,1924,1862,1874,1578,1814,2011,2020,1751,2031,1871,1804,2048,2016,3344,1930,1986,2039,1953,2258,2129,2266,2126,1982,2041,2105,2224,2196,2024,2250,2277,2480,2286,2197,8,2382,0,2459,2561,0];
+const SPI  = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,48,280,36,19,10,5,19,68,12,2,40,407,32,0,0,0,0,0,0,0,1,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+
+const MONEY = [
+  {y:"2022",     psdf:[41361.39,228661.28,195925.21], prie:[5787.27,35281.03,35918.82], rec:12175},
+  {y:"2023",     psdf:[46352.40,250570.29,164441.17], prie:[8239.36,58488.73,30934.81], rec:14152},
+  {y:"2024",     psdf:[49861.56,256416.91,141446.24], prie:[9699.20,63604.18,31348.05], rec:15602},
+  {y:"2025",     psdf:[53219.06,284297.89,151310.64], prie:[13576.12,88159.96,42704.70], rec:16945},
+  {y:"2026 I k.",psdf:[14742.09,74868.66,40474.72],  prie:[5193.97,35307.59,20688.76], rec:4685, partial:true}
+];
+MONEY.forEach(function(d){
+  d.tPsdf = d.psdf.reduce(function(a,b){return a+b;},0);
+  d.tPrie = d.prie.reduce(function(a,b){return a+b;},0);
+  d.total = d.tPsdf + d.tPrie;
+  d.share = d.tPrie / d.total;
+});
+
+const UNIT_SERIES = [
+  {key:"s250",  name:"250 mg",  data:S250,  css:"--s1"},
+  {key:"s500",  name:"500 mg",  data:S500,  css:"--s2"},
+  {key:"s1000", name:"1000 mg", data:S1000, css:"--s3"}
+];
+
+/* metinės sumos */
+const YEARS = [];
+const YMAP = {};
+MONTHS.forEach(function(m,i){
+  const y = m.slice(0,4);
+  if(!YMAP[y]){ YMAP[y] = {y:y, s250:0, s500:0, s1000:0, pi:0, n:0}; YEARS.push(YMAP[y]); }
+  const r = YMAP[y];
+  r.s250 += S250[i]; r.s500 += S500[i]; r.s1000 += S1000[i]; r.pi += SPI[i]; r.n++;
+});
+YEARS.forEach(function(r){ r.total = r.s250 + r.s500 + r.s1000 + r.pi; });
+
+/* ---------- pagalbinės ---------- */
+const nf0 = new Intl.NumberFormat("lt-LT",{maximumFractionDigits:0});
+const nfE = new Intl.NumberFormat("lt-LT",{maximumFractionDigits:0});
+const num = function(v){ return nf0.format(Math.round(v)); };
+const eur = function(v){ return nfE.format(Math.round(v)) + " €"; };
+const pct = function(v){ return (v*100).toFixed(1).replace(".",",") + " %"; };
+const NS = "http://www.w3.org/2000/svg";
+function el(n,a){ const e=document.createElementNS(NS,n); for(const k in a) e.setAttribute(k,a[k]); return e; }
+function cssVar(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+function niceMax(v){
+  if(v<=0) return 10;
+  const p = Math.pow(10, Math.floor(Math.log10(v)));
+  const steps = [1,1.25,1.5,2,2.5,3,4,5,6,7,8,10];
+  for(let i=0;i<steps.length;i++){ if(steps[i]*p >= v) return steps[i]*p; }
+  return 10*p;
+}
+
+/* ---------- KPI ---------- */
+(function(){
+  const y25 = YMAP["2025"], y24 = YMAP["2024"];
+  const m25 = MONEY.find(function(d){return d.y==="2025";});
+  const growth = (y25.total/y24.total - 1);
+  const items = [
+    {l:"Parduota pakuočių, 2025 m.", v:num(y25.total), n:"+"+(growth*100).toFixed(1).replace(".",",")+" % palyginti su 2024 m."},
+    {l:"Kompensuota apyvarta, 2025 m.", v:num(m25.total/1000)+" tūkst. €", n:"PSDF "+eur(m25.tPsdf)+" + pacientų priemokos "+eur(m25.tPrie)},
+    {l:"Kompensuojamųjų receptų, 2025 m.", v:num(m25.rec), n:"250 mg, 500 mg ir 1000 mg pakuotėms kartu"},
+    {l:"Pacientų dalis apyvartoje, 2025 m.", v:pct(m25.share), n:"2022 m. buvo "+pct(MONEY[0].share)+", 2026 m. I ketv. — "+pct(MONEY[4].share)}
+  ];
+  document.getElementById("kpis").innerHTML = items.map(function(it){
+    return '<div class="kpi"><div class="k-label">'+it.l+'</div><div class="k-val">'+it.v+'</div><div class="k-note">'+it.n+'</div></div>';
+  }).join("");
+})();
+
+/* ---------- bendras kaminėlių grafikas ---------- */
+function StackChart(rootId, opts){
+  const root = document.getElementById(rootId);
+  const svg = root.querySelector("svg");
+  const tip = root.querySelector(".tip");
+  let hoverIdx = -1;
+
+  function draw(){
+    const W = root.clientWidth || 720;
+    const narrow = W < 560;
+    const H = narrow ? 280 : 340;
+    const m = {t:16, r:6, b:narrow?26:30, l:narrow?42:54};
+    const pw = W - m.l - m.r, ph = H - m.t - m.b;
+    const rows = opts.rows();
+    const series = opts.series();
+    const n = rows.length;
+
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    svg.setAttribute("viewBox","0 0 "+W+" "+H);
+    svg.setAttribute("height",H);
+    svg.setAttribute("role","img");
+    svg.setAttribute("aria-label",opts.aria);
+
+    const totals = rows.map(function(r){
+      return series.reduce(function(a,s){ return a + (r.vals[s.key]||0); },0);
+    });
+    const max = niceMax(Math.max.apply(null,totals.concat([1])) * 1.02);
+    const yS = function(v){ return m.t + ph - (v/max)*ph; };
+
+    /* tinklelis */
+    const ticks = 4;
+    for(let i=0;i<=ticks;i++){
+      const v = max*i/ticks, y = yS(v);
+      svg.appendChild(el("line",{x1:m.l,x2:m.l+pw,y1:y,y2:y,stroke:i===0?cssVar("--axis"):cssVar("--grid"),"stroke-width":1}));
+      const t = el("text",{x:m.l-8,y:y+4,"text-anchor":"end",fill:cssVar("--muted"),style:'font:500 10.5px "IBM Plex Mono",monospace'});
+      t.textContent = opts.yTick(v);
+      svg.appendChild(t);
+    }
+
+    const step = pw/n;
+    const bw = Math.max(2, Math.min(opts.maxBar||46, step*0.74));
+
+    /* žymė po pele */
+    const band = el("rect",{x:0,y:m.t,width:step,height:ph,fill:cssVar("--chip"),opacity:0});
+    svg.appendChild(band);
+
+    rows.forEach(function(r,i){
+      const cx = m.l + step*i + step/2;
+      let cum = 0;
+      const stack = series.filter(function(s){ return (r.vals[s.key]||0) > 0; });
+      stack.forEach(function(s,k){
+        const v = r.vals[s.key];
+        const y0 = yS(cum), y1 = yS(cum+v);
+        const isTop = (k === stack.length-1);
+        let h = y0 - y1 - (isTop ? 0 : 2);
+        if(h < 0.6) h = 0.6;
+        const col = cssVar(s.css);
+        if(isTop){
+          const rad = Math.min(4, bw/2, h);
+          const x = cx-bw/2, yTop = y1;
+          const d = "M"+x+" "+(yTop+h)+" L"+x+" "+(yTop+rad)+" Q"+x+" "+yTop+" "+(x+rad)+" "+yTop
+                  + " L"+(x+bw-rad)+" "+yTop+" Q"+(x+bw)+" "+yTop+" "+(x+bw)+" "+(yTop+rad)
+                  + " L"+(x+bw)+" "+(yTop+h)+" Z";
+          svg.appendChild(el("path",{d:d,fill:col}));
+        } else {
+          svg.appendChild(el("rect",{x:cx-bw/2,y:y1,width:bw,height:h,fill:col}));
+        }
+        cum += v;
+      });
+      if(opts.topLabel && step > 40){
+        const lab = opts.topLabel(r,totals[i]);
+        if(lab){
+          const t = el("text",{x:cx,y:yS(totals[i])-7,"text-anchor":"middle",fill:cssVar("--ink2"),style:'font:500 10.5px "IBM Plex Mono",monospace'});
+          t.textContent = lab;
+          svg.appendChild(t);
+        }
+      }
+      if(opts.xLabel(r,i,n,narrow) !== null && opts.xLabel(r,i,n,narrow) !== undefined){
+        const t = el("text",{x:cx,y:H-m.b+16,"text-anchor":"middle",fill:cssVar("--muted"),style:'font:500 10.5px "IBM Plex Mono",monospace'});
+        t.textContent = opts.xLabel(r,i,n,narrow);
+        svg.appendChild(t);
+      }
+    });
+
+    /* pelės sluoksnis */
+    const hit = el("rect",{x:m.l,y:m.t,width:pw,height:ph,fill:"transparent"});
+    svg.appendChild(hit);
+
+    function show(evt){
+      const bx = svg.getBoundingClientRect();
+      const px = (evt.clientX - bx.left) * (W/bx.width);
+      let i = Math.floor((px - m.l)/step);
+      if(i<0) i=0; if(i>n-1) i=n-1;
+      hoverIdx = i;
+      band.setAttribute("x", m.l + step*i);
+      band.setAttribute("opacity", .55);
+      tip.innerHTML = opts.tipHtml(rows[i], series, totals[i]);
+      tip.style.opacity = 1;
+      const tw = tip.offsetWidth, rw = root.clientWidth;
+      let left = (m.l + step*i + step/2) * (bx.width/W) + 12;
+      if(left + tw > rw) left = left - tw - 24;
+      if(left < 0) left = 0;
+      tip.style.left = left+"px";
+      tip.style.top = Math.max(0, (evt.clientY - bx.top) - 30) + "px";
+    }
+    function hide(){ hoverIdx=-1; band.setAttribute("opacity",0); tip.style.opacity=0; }
+    hit.addEventListener("mousemove", show);
+    hit.addEventListener("mouseleave", hide);
+    hit.addEventListener("touchstart", function(e){ show(e.touches[0]); }, {passive:true});
+    hit.addEventListener("touchmove", function(e){ show(e.touches[0]); }, {passive:true});
+  }
+
+  this.draw = draw;
+  const ro = new ResizeObserver(function(){ draw(); });
+  ro.observe(root);
+}
+
+/* ---------- 1: pakuotės ---------- */
+let unitView = "year";
+const unitOff = {};
+
+function unitRows(){
+  if(unitView === "year"){
+    return YEARS.map(function(r){
+      return {label:r.y, sub:(r.y==="2026"?"I–VI mėn.":null), vals:{s250:r.s250,s500:r.s500,s1000:r.s1000}, pi:r.pi};
+    });
+  }
+  return MONTHS.map(function(m,i){
+    return {label:m, month:m, vals:{s250:S250[i],s500:S500[i],s1000:S1000[i]}, pi:SPI[i]};
+  });
+}
+function unitSeries(){ return UNIT_SERIES.filter(function(s){ return !unitOff[s.key]; }); }
+
+const MN = ["sausis","vasaris","kovas","balandis","gegužė","birželis","liepa","rugpjūtis","rugsėjis","spalis","lapkritis","gruodis"];
+function monthLabel(m){ return MN[parseInt(m.slice(5),10)-1] + " " + m.slice(0,4); }
+
+const unitChart = new StackChart("ch-units",{
+  aria:"Parduotų Dretacen pakuočių kaminėlių grafikas pagal stiprumą",
+  rows: unitRows,
+  series: unitSeries,
+  maxBar: 46,
+  yTick: function(v){ return v >= 1000 ? num(v/1000)+"k" : num(v); },
+  xLabel: function(r,i,n,narrow){
+    if(unitView === "year") return (narrow && i%2===1) ? null : (r.sub ? r.label+"*" : r.label);
+    return r.month.slice(5) === "01" ? r.month.slice(0,4) : null;
+  },
+  topLabel: function(r,t){ return unitView === "year" ? num(t) : null; },
+  tipHtml: function(r, series, total){
+    const head = unitView === "year" ? (r.label + (r.sub ? " · "+r.sub : " m.")) : monthLabel(r.month);
+    let h = '<div class="t-head">'+head+'</div><table>';
+    series.forEach(function(s){
+      h += '<tr><td class="n"><span class="dot" style="background:'+cssVar(s.css)+'"></span>'+s.name+'</td><td class="v">'+num(r.vals[s.key])+'</td></tr>';
+    });
+    if(r.pi) h += '<tr><td class="n">lygiagretus importas</td><td class="v">'+num(r.pi)+'</td></tr>';
+    h += '<tr class="tot"><td>Iš viso</td><td class="v">'+num(total + (r.pi||0))+'</td></tr></table>';
+    return h;
+  }
+});
+
+/* legenda */
+(function(){
+  const box = document.getElementById("leg-u");
+  UNIT_SERIES.forEach(function(s){
+    const b = document.createElement("button");
+    b.type = "button";
+    b.setAttribute("aria-pressed","true");
+    b.innerHTML = '<span class="swatch" style="background:var('+s.css+')"></span>'+s.name;
+    b.addEventListener("click", function(){
+      const on = b.getAttribute("aria-pressed") === "true";
+      if(on && unitSeries().length === 1) return;
+      unitOff[s.key] = on;
+      b.setAttribute("aria-pressed", on ? "false" : "true");
+      unitChart.draw();
+    });
+    box.appendChild(b);
+  });
+})();
+
+/* rodinio perjungiklis */
+(function(){
+  const by = document.getElementById("v-year"), bm = document.getElementById("v-month");
+  function set(v){
+    unitView = v;
+    by.setAttribute("aria-pressed", v==="year" ? "true":"false");
+    bm.setAttribute("aria-pressed", v==="month" ? "true":"false");
+    unitChart.draw();
+  }
+  by.addEventListener("click", function(){ set("year"); });
+  bm.addEventListener("click", function(){ set("month"); });
+})();
+
+/* ---------- 2: pinigai ---------- */
+const MONEY_SERIES = [
+  {key:"psdf", name:"PSDF biudžetas", css:"--m1"},
+  {key:"prie", name:"Pacientų priemokos", css:"--m2"}
+];
+const moneyChart = new StackChart("ch-money",{
+  aria:"Dretacen kompensuota apyvarta pagal metus: PSDF išlaidos ir pacientų priemokos",
+  rows: function(){
+    return MONEY.map(function(d){
+      return {label:d.y, vals:{psdf:d.tPsdf, prie:d.tPrie}, d:d};
+    });
+  },
+  series: function(){ return MONEY_SERIES; },
+  maxBar: 64,
+  yTick: function(v){ return v >= 1000 ? num(v/1000)+"k €" : num(v)+" €"; },
+  xLabel: function(r){ return r.label; },
+  topLabel: function(r){ return pct(r.d.share); },
+  tipHtml: function(r, series, total){
+    const d = r.d;
+    let h = '<div class="t-head">'+d.y+(d.partial?"":" m.")+'</div><table>';
+    h += '<tr><td class="n"><span class="dot" style="background:'+cssVar("--m1")+'"></span>PSDF biudžetas</td><td class="v">'+eur(d.tPsdf)+'</td></tr>';
+    h += '<tr><td class="n"><span class="dot" style="background:'+cssVar("--m2")+'"></span>Pacientų priemokos</td><td class="v">'+eur(d.tPrie)+'</td></tr>';
+    h += '<tr class="tot"><td>Iš viso</td><td class="v">'+eur(total)+'</td></tr>';
+    h += '<tr><td class="n">Receptų</td><td class="v">'+num(d.rec)+'</td></tr>';
+    h += '</table>';
+    return h;
+  }
+});
+
+/* ---------- 3: lentelė ---------- */
+(function(){
+  const t = document.getElementById("tbl");
+  const mby = {}; MONEY.forEach(function(d){ mby[d.y] = d; });
+  let h = '<thead><tr><th>Metai</th><th>250 mg</th><th>500 mg</th><th>1000 mg</th><th>Lygiag. importas</th><th>Iš viso pakuočių</th><th>PSDF, €</th><th>Priemokos, €</th><th>Receptų</th></tr></thead><tbody>';
+  YEARS.forEach(function(r){
+    const m = mby[r.y];
+    h += '<tr><td>'+r.y+(r.y==="2026"?' <span class="dim">I–VI</span>':'')+'</td>'
+      + '<td>'+num(r.s250)+'</td><td>'+num(r.s500)+'</td><td>'+num(r.s1000)+'</td>'
+      + (r.pi ? '<td>'+num(r.pi)+'</td>' : '<td class="dim">—</td>')
+      + '<td><b>'+num(r.total)+'</b></td>'
+      + (m ? '<td>'+num(m.tPsdf)+'</td><td>'+num(m.tPrie)+'</td><td>'+num(m.rec)+'</td>'
+           : '<td class="dim">—</td><td class="dim">—</td><td class="dim">—</td>')
+      + '</tr>';
+  });
+  const q = MONEY[4];
+  h += '<tr><td>2026 <span class="dim">I ketv.</span></td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td>'
+    + '<td>'+num(q.tPsdf)+'</td><td>'+num(q.tPrie)+'</td><td>'+num(q.rec)+'</td></tr>';
+  h += '</tbody>';
+  t.innerHTML = h;
+})();
+
+/* pirmas piešimas + temos keitimas */
+unitChart.draw();
+moneyChart.draw();
+if(window.matchMedia){
+  const mq = window.matchMedia("(prefers-color-scheme: dark)");
+  const redraw = function(){ unitChart.draw(); moneyChart.draw(); };
+  if(mq.addEventListener) mq.addEventListener("change", redraw);
+}
+new MutationObserver(function(){ unitChart.draw(); moneyChart.draw(); })
+  .observe(document.documentElement,{attributes:true,attributeFilter:["data-theme"]});
+
+})();
+</script>
+
+</body>
+</html>
