@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="lt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Rivotril (Klonazepamas, N03AE01) pardavimai Lietuvoje 2017–2026 m. pagal VVKT ir VLK duomenis.">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%8A%3C/text%3E%3C/svg%3E">
+<title>Rivotril — pardavimai ir kompensavimas</title>
+<link rel="stylesheet" href="../assets/style.css">
+<style>html{background:#f3f5f8}@media(prefers-color-scheme:dark){html:not([data-theme="light"]){background:#0d0e10}}html[data-theme="dark"]{background:#0d0e10}</style>
+</head>
+<body>
+<div class="wrap">
+<div class="crumb"><a href="../index.html">Antiepilepsiniai vaistai</a> <span>›</span> <span>Rivotril</span></div>
+
+<header>
+  <div class="eyebrow">Klonazepamas · N03AE01</div>
+  <h1>Rivotril</h1>
+  <p class="lede">Kiek Rivotril pakuočių didmenininkai pardavė vaistinėms ir gydymo įstaigoms, ir kiek už jį sumokėjo PSDF biudžetas bei patys pacientai.</p>
+  <div class="stamp"><span>VVKT · data.gov.lt</span><span>VLK · PSDF ataskaitos</span><span>Duomenys iki 2026-06</span></div>
+</header>
+
+<div class="kpis" id="kpis"></div>
+
+<section>
+  <h2>Parduota pakuočių</h2>
+  <p class="sub">Didmeninio platinimo ataskaitos: pakuotės, parduotos vaistinėms, asmens sveikatos priežiūros įstaigoms, mažmenai ir pavieniams pacientams. Tai judėjimas į prekybos tinklą, o ne išdavimas pacientams.</p>
+  <div class="bar">
+    <div class="seg" role="group" aria-label="Laikotarpio žingsnis">
+      <button type="button" id="v-year" aria-pressed="true">Metais</button>
+      <button type="button" id="v-month" aria-pressed="false">Mėnesiais</button>
+    </div>
+    <div class="legend" id="leg-u"></div>
+  </div>
+  <div class="chart" id="ch-units"><svg></svg><div class="tip"></div></div>
+</section>
+
+<section id="sec-money">
+  <h2>Kompensuota apyvarta</h2>
+  <p class="sub">PSDF biudžeto išlaidos ir pacientų sumokėtos priemokos už kompensuojamuosius receptus. Skaičius virš stulpelio — pacientų priemokų dalis visoje tų metų apyvartoje.</p>
+  <div class="bar"><div class="legend" id="leg-m"></div></div>
+  <div class="chart" id="ch-money"><svg></svg><div class="tip"></div></div>
+</section>
+
+<section>
+  <h2>Metinė suvestinė</h2>
+  <div class="tablewrap"><table class="data" id="tbl"></table></div>
+</section>
+
+<section>
+  <h2>Registracijos</h2>
+  <p class="sub">Visos šio prekinio pavadinimo registracijos, turinčios pardavimų duomenų. Identifikatorius veda į VVKT registro įrašą.</p>
+  <div class="tablewrap"><table class="data" id="tbl-regs"></table></div>
+</section>
+
+<footer>
+  <hr class="hr">
+  <h3>Metodika</h3>
+  <ul>
+    <li><b>Pakuotės</b> — VVKT atvirų duomenų rinkinys „Vaistinių preparatų pakuočių pardavimai“ (mėnesiniai didmeninio platinimo duomenys nuo 2017 m.). Rinkinyje nėra prekinio pavadinimo, tik bendrinis, todėl preparatai atrinkti pagal VVKT registracijos identifikatorius (<code>vid</code>) ir susieti su VAPRIS registru. 2017–2018 m. eilutėse bendrinio pavadinimo lauke įrašyti prekiniai pavadinimai — tie metai surinkti atskirai pagal registracijos ID.</li>
+    <li><b>Eurai</b> — VLK „PSDF biudžeto išlaidų kompensuojamiesiems vaistams ir MPP pagal jų pavadinimus“ ataskaitos (2022–2025 m. ir 2026 m. I ketvirtis). Eilutės susietos su registracijomis pagal nacionalinės pakuotės identifikatorių, ne pagal pavadinimą. Tai tik kompensuojamoji apyvarta — pakuočių skaičiai apima ir nekompensuojamą.</li>
+    <li><b>DDD</b> (nustatytoji paros dozė) apskaičiuota iš stiprumo ir pakuotės dydžio, dalijant iš PSO normos; normos paimtos iš VVKT rinkinio „Vaistinių preparatų vartojimo ir sudėties parametrai“. Rodiklis 1000 gyventojų per dieną naudoja Valstybės duomenų agentūros nuolatinių gyventojų skaičių metų pradžioje. Kontrolė: 2025 m. visos N03A grupės rodiklis pagal šį skaičiavimą — 7,48, VVKT skelbia 7,69 (skirtumas 2,7 %). Brivaracetamui, cenobamatui ir kanabidioliui PSO DDD nėra nustatyta, todėl jie į rodiklį neįskaičiuoti.</li>
+    <li><b>Pacientų skaičius</b> nesumuojamas per stiprumus ar preparatus — tas pats žmogus gali gauti kelis.</li>
+    <li>2026 m. duomenys nepilni: pakuotės — iki birželio, eurai — I ketvirtis.</li>
+  </ul>
+  <h3>Šaltiniai</h3>
+  <ul>
+    <li><a href="https://data.gov.lt/datasets/2941/" target="_blank" rel="noopener">data.gov.lt — Vaistinių preparatų pakuočių pardavimai (VVKT)</a></li>
+    <li><a href="https://data.gov.lt/datasets/3802/" target="_blank" rel="noopener">data.gov.lt — Vaistinių preparatų vartojimo ir sudėties parametrai (VVKT)</a></li>
+    <li><a href="https://vapris.vvkt.lt/vvkt-web/public/medications?atcCode=N03A&amp;showData=true" target="_blank" rel="noopener">VAPRIS — N03A registracijos</a></li>
+    <li><a href="https://ligoniukasa.lrv.lt/lt/veiklos-sritys/gydymo-istaigoms-ir-partneriams/kompensuojamieji-vaistai-ir-medicinos-pagalbos-priemones-2/statistika-1/" target="_blank" rel="noopener">VLK — kompensuojamųjų vaistų statistika</a></li>
+  </ul>
+</footer>
+</div>
+<script>window.PAGE={type:"brand",slug:"rivotril",base:"../"};</script>
+<script src="../assets/app.js"></script>
+</body>
+</html>
