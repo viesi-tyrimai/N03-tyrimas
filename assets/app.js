@@ -239,7 +239,7 @@
             '<tr><td class="n"><span class="dot" style="background:' + cv("--m2") + '"></span>Pacientų priemokos</td><td class="v">' + eur(r.raw[1]) + "</td></tr>" +
             '<tr class="tot"><td>Iš viso</td><td class="v">' + eur(total) + "</td></tr>" +
             '<tr><td class="n">Receptų</td><td class="v">' + num(r.raw[2]) + "</td></tr>" +
-            '<tr><td class="n">Pacientų</td><td class="v">' + num(r.raw[3]) + "</td></tr></table>";
+            '<tr><td class="n">Pacientų (≥)</td><td class="v">' + num(r.raw[3]) + "</td></tr></table>";
         }
       });
       legendInto(document.getElementById("leg-m"), mser, {}, function () { mchart.draw(); });
@@ -261,7 +261,8 @@
     if (m25) {
       k.push({ l: "Kompensuota apyvarta, 2025 m.", v: num((m25[0] + m25[1]) / 1000) + " tūkst. €",
         n: "PSDF " + eur(m25[0]) + " + priemokos " + eur(m25[1]) });
-      k.push({ l: "Receptų, 2025 m.", v: num(m25[2]), n: num(m25[3]) + " pacientų" });
+      k.push({ l: "Receptų, 2025 m.", v: num(m25[2]),
+        n: "pacientų — ne mažiau kaip " + num(m25[3]) + " (nesumuojami per pakuotes)" });
     } else if (brand.ddd && brand.ddd["2025"]) {
       k.push({ l: "DDD, 2025 m.", v: num(brand.ddd["2025"]),
         n: "nustatytosios paros dozės pagal PSO metodiką" });
@@ -354,11 +355,16 @@
     });
     var ddd25 = 0; subs.forEach(function (s) { ddd25 += D.substanceDdd[s]["2025"] || 0; });
     ddd25 = ddd25 / 365 / (D.population["2025"] / 1000);
+    var E0 = D.epi, DK0 = D.dk;
     document.getElementById("kpis").innerHTML = [
-      { l: "Parduota pakuočių, 2025 m.", v: num(pk), n: D.brands.length + " preparatų, " + Object.keys(D.substances).length + " veikliųjų medžiagų" },
-      { l: "PSDF išlaidos, 2025 m.", v: num(ps / 1000) + " tūkst. €", n: "pacientų priemokos — dar " + num(pp / 1000) + " tūkst. €" },
-      { l: "Suvartojimas, 2025 m.", v: ddd25.toFixed(2).replace(".", ",") , n: "DDD 1000 gyventojų per dieną (VVKT skelbia 7,69)" },
-      { l: "Registruota, bet neparduodama", v: String(D.unsold.length), n: "prekinių pavadinimų be nė vienos parduotos pakuotės" }
+      { l: "Serga epilepsija, 2025 m.", v: num(E0.years["2025"][0]),
+        n: String(E0.years["2025"][1]).replace(".", ",") + " iš 1000 gyventojų" },
+      { l: "Epilepsijos receptų, 2025 m.", v: num(E0.rx2025.n03aSuG40),
+        n: "iš " + num(E0.rx2025.n03aVisi) + " visų N03A receptų" },
+      { l: "Naujos kartos vaistų dalis", v: String(DK0.ltNaujaDalis).replace(".", ",") + " %",
+        n: "Danijoje — apie " + String(DK0.dkNaujaDalis).replace(".", ",") + " % viso suvartojimo" },
+      { l: "PSDF išlaidos, 2025 m.", v: num(ps / 1000) + " tūkst. €",
+        n: "pacientų priemokos — dar " + num(pp / 1000) + " tūkst. €" }
     ].map(function (x) {
       return '<div class="kpi"><div class="k-label">' + esc(x.l) + '</div><div class="k-val">' + x.v +
         '</div><div class="k-note">' + esc(x.n) + "</div></div>";
@@ -426,6 +432,192 @@
     }).join("");
   }
 
+
+  /* ---------- epidemiologija + receptai ---------- */
+  function renderEpi(D) {
+    var E = D.epi; if (!E) return;
+
+    /* sergamumo grafikas */
+    var eyears = Object.keys(E.years).sort();
+    var ch = new StackChart(document.getElementById("ch-epi"), {
+      aria: "Epilepsija (G40–G41) sergančių asmenų skaičius 2017–2025 m.",
+      rows: function () {
+        return eyears.map(function (y) { return { label: y, vals: { n: E.years[y][0] }, rate: E.years[y][1] }; });
+      },
+      series: function () { return [{ key: "n", name: "Sergančių asmenų", css: "--s4" }]; },
+      maxBar: 56,
+      yTick: function (v) { return v >= 1000 ? num(v / 1000) + "k" : num(v); },
+      xLabel: function (r, i, n, narrow) { return (narrow && i % 2 === 1) ? null : r.label; },
+      topLabel: function (r) { return num(r.vals.n); },
+      tipHtml: function (r) {
+        return '<div class="t-head">' + r.label + " m.</div><table>" +
+          '<tr><td class="n">Sergančių asmenų</td><td class="v">' + num(r.vals.n) + "</td></tr>" +
+          '<tr><td class="n">1000 gyventojų</td><td class="v">' + String(r.rate).replace(".", ",") + "</td></tr></table>";
+      }
+    });
+    ch.draw();
+
+    function miniTable(id, rows, h1) {
+      var h = '<thead><tr><th class="l">' + h1 + "</th><th>Asmenų</th><th>1000 gyv.</th></tr></thead><tbody>";
+      rows.forEach(function (r) {
+        h += '<tr><td class="l">' + esc(r[0]) + "</td><td>" + num(r[1]) + "</td><td>" +
+             String(r[2]).replace(".", ",") + "</td></tr>";
+      });
+      document.getElementById(id).innerHTML = h + "</tbody>";
+    }
+    miniTable("tbl-sex", E.sex2025, "Lytis");
+    miniTable("tbl-age", E.age2025, "Amžiaus grupė");
+
+    /* savivaldybės */
+    var srows = E.sav2025.filter(function (r) { return r[0] !== "Nenurodyta"; })
+      .map(function (r) { return { name: r[0], n: r[1], r: r[2] }; });
+    var sk = "r", sd = -1;
+    function srender() {
+      srows.sort(function (a, b) {
+        var x = a[sk], y = b[sk];
+        return typeof x === "string" ? sd * x.localeCompare(y, "lt") : sd * (x - y);
+      });
+      document.querySelector("#tbl-sav tbody").innerHTML = srows.map(function (r) {
+        return '<tr><td class="l">' + esc(r.name) + "</td><td>" + num(r.n) + "</td><td>" +
+               r.r.toFixed(2).replace(".", ",") + "</td></tr>";
+      }).join("");
+      document.querySelectorAll("#tbl-sav thead th").forEach(function (th) {
+        if (th.dataset.k === sk) th.setAttribute("aria-sort", sd < 0 ? "descending" : "ascending");
+        else th.removeAttribute("aria-sort");
+      });
+    }
+    document.querySelectorAll("#tbl-sav thead th.sortable").forEach(function (th) {
+      th.addEventListener("click", function () {
+        var k = th.dataset.k;
+        if (k === sk) sd = -sd; else { sk = k; sd = k === "name" ? 1 : -1; }
+        srender();
+      });
+    });
+    srender();
+
+    /* receptai */
+    var R = E.rx2025, share = R.n03aSuG40 / R.n03aVisi;
+    var rxBox = document.getElementById("kpis-rx");
+    if (rxBox) rxBox.innerHTML = [
+      { l: "Antiepilepsinių receptų, 2025 m.", v: num(R.n03aVisi), n: "iš " + num(R.visiReceptai) + " visų šalies receptų" },
+      { l: "Iš jų su epilepsijos diagnoze", v: num(R.n03aSuG40), n: pct(share) + " visų N03A receptų" },
+      { l: "Epilepsijos receptų iš viso", v: num(R.g40Visi), n: pct(R.n03aSuG40 / R.g40Visi) + " jų — antiepilepsiniai vaistai" },
+      { l: "Vyrai / moterys", v: num(R.sex[0][1]) + " / " + num(R.sex[1][1]), n: "epilepsijos receptai pagal paciento lytį" }
+    ].map(function (x) {
+      return '<div class="kpi"><div class="k-label">' + esc(x.l) + '</div><div class="k-val">' + x.v +
+        '</div><div class="k-note">' + esc(x.n) + "</div></div>";
+    }).join("");
+
+    var h = '<thead><tr><th class="l">Veiklioji medžiaga</th><th>Receptų iš viso</th><th>Iš jų epilepsijai</th>' +
+      '<th>Dalis</th><th class="l">Kam dar skiriama</th></tr></thead><tbody>';
+    R.byAtc.forEach(function (r) {
+      var kitos = r.kitos.map(function (k) {
+        return esc(k[1]) + ' <span class="dim">' + num(k[2]) + "</span>";
+      }).join("<br>");
+      h += '<tr><td class="l"><b>' + esc(r.sub) + '</b> <span class="pill">' + esc(r.atc) + "</span></td>" +
+        "<td>" + num(r.visi) + "</td><td>" + num(r.g40) + "</td>" +
+        '<td><span class="share"><i style="width:' + Math.max(2, r.dalis) + '%"></i></span> ' +
+        String(r.dalis).replace(".", ",") + " %</td>" +
+        '<td class="l small">' + (kitos || '<span class="dim">—</span>') + "</td></tr>";
+    });
+    document.getElementById("tbl-rxatc").innerHTML = h + "</tbody>";
+
+    h = '<thead><tr><th class="l">Kodas</th><th class="l">Diagnozė</th><th>Receptų</th></tr></thead><tbody>';
+    R.byDiag.forEach(function (r) {
+      h += '<tr><td class="l"><span class="pill">' + esc(r[0]) + '</span></td><td class="l">' + esc(r[1]) +
+        "</td><td>" + num(r[2]) + "</td></tr>";
+    });
+    document.getElementById("tbl-rxdiag").innerHTML = h + "</tbody>";
+  }
+
+
+  /* ---------- Danijos palyginimas ---------- */
+  function renderDk(D) {
+    var K = D.dk; if (!K) return;
+    document.getElementById("kpis-dk").innerHTML = [
+      { l: "Naujos kartos vaistų dalis, Lietuva", v: String(K.ltNaujaDalis).replace(".", ",") + " %",
+        n: "nuo viso antiepilepsinių vaistų suvartojimo (DDD)" },
+      { l: "Naujos kartos vaistų dalis, Danija", v: "~" + String(K.dkNaujaDalis).replace(".", ",") + " %",
+        n: "apie " + num(K.dkNaujaAsm) + " žmonių gauna bent vieną tokį vaistą" },
+      { l: "Antiepilepsinius vartoja, Danija", v: num(K.n03aAsmenys),
+        n: String(K.n03aAsm1000).replace(".", ",") + " iš 1000 gyventojų · " + String(K.n03aDdd).replace(".", ",") + " DDD/1000/d" },
+      { l: "Suvartojimas, Lietuva", v: String(K.ltN03aDdd).replace(".", ",") + " DDD/1000/d",
+        n: "Danijoje " + String(K.n03aDdd).replace(".", ",") + " — beveik dvigubai daugiau" }
+    ].map(function (x) {
+      return '<div class="kpi"><div class="k-label">' + esc(x.l) + '</div><div class="k-val">' + x.v +
+        '</div><div class="k-note">' + esc(x.n) + "</div></div>";
+    }).join("");
+
+    var h = '<thead><tr><th class="l">Veiklioji medžiaga</th>' +
+      '<th>DK asmenų</th><th>DK 1000 gyv.</th><th>DK DDD/1000/d</th>' +
+      '<th>LT DDD/1000/d</th><th>LT epilepsijos receptų</th></tr></thead><tbody>';
+    K.rows.forEach(function (r) {
+      var lt = r.ltDdd, dk = r.dkDdd;
+      var santykis = (lt > 0 && dk > 0) ? (dk / lt) : null;
+      h += "<tr" + (r.nauja ? ' class="hl"' : "") + '><td class="l"><b>' + esc(r.sub) + "</b>" +
+        (r.nauja ? ' <span class="pill new">naujos kartos</span>' : "") + "</td>" +
+        (r.dkAsm == null ? '<td class="dim">neregistr.</td><td class="dim">—</td><td class="dim">—</td>'
+          : "<td>" + num(r.dkAsm) + "</td><td>" + String(r.dkAsm1000).replace(".", ",") + "</td><td>" +
+            String(r.dkDdd).replace(".", ",") + "</td>") +
+        "<td>" + (lt ? lt.toFixed(4).replace(".", ",").replace(/,?0+$/, function (m) { return m.length > 3 ? "" : m; }) : '<span class="dim">0</span>') + "</td>" +
+        "<td>" + (r.ltRx != null ? num(r.ltRx) : '<span class="dim">—</span>') + "</td></tr>";
+    });
+    document.getElementById("tbl-dk").innerHTML = h + "</tbody>";
+  }
+
+
+  /* ---------- TOP 10 lentelės ---------- */
+  function bar(v, max, cls) {
+    return '<span class="share wide"><i class="' + (cls || "") + '" style="width:' +
+      Math.max(1.5, v / max * 100) + '%"></i></span>';
+  }
+  function renderTop10(D) {
+    var E = D.epi, K = D.dk;
+
+    var lt = E.rx2025.byAtc.slice().sort(function (a, b) { return b.g40 - a.g40; }).slice(0, 10);
+    var ltMax = lt[0].g40, ltSum = E.rx2025.n03aSuG40;
+    var h = '<thead><tr><th class="l">#</th><th class="l">Veiklioji medžiaga</th><th>Epilepsijos receptų</th>' +
+      '<th class="l">Dalis visų epilepsijos receptų</th><th>Iš viso receptų</th><th>Epilepsijai</th></tr></thead><tbody>';
+    lt.forEach(function (r, i) {
+      h += "<tr" + (r.nauja ? ' class="hl"' : "") + '><td class="l dim">' + (i + 1) + "</td>" +
+        '<td class="l"><b>' + esc(r.sub) + '</b> <span class="pill">' + esc(r.atc) + "</span></td>" +
+        "<td>" + num(r.g40) + "</td>" +
+        '<td class="l nowrap">' + bar(r.g40, ltMax) + " " + pct(r.g40 / ltSum) + "</td>" +
+        "<td>" + num(r.visi) + "</td><td>" + String(r.dalis).replace(".", ",") + " %</td></tr>";
+    });
+    document.getElementById("tbl-lt10").innerHTML = h + "</tbody>";
+
+    var dk = K.rows.filter(function (r) { return r.dkAsm; })
+      .sort(function (a, b) { return b.dkAsm - a.dkAsm; }).slice(0, 10);
+    var dkMax = dk[0].dkAsm;
+    h = '<thead><tr><th class="l">#</th><th class="l">Veiklioji medžiaga</th><th>Asmenų</th>' +
+      '<th class="l">Palyginti su pirmaujančiu</th><th>1000 gyv.</th><th>Lietuvoje 2025 m.</th></tr></thead><tbody>';
+    dk.forEach(function (r, i) {
+      var ltRx = r.ltRx;
+      h += "<tr" + (r.nauja ? ' class="hl"' : "") + '><td class="l dim">' + (i + 1) + "</td>" +
+        '<td class="l"><b>' + esc(r.sub) + "</b>" + (r.nauja ? ' <span class="pill new">naujos kartos</span>' : "") + "</td>" +
+        "<td>" + num(r.dkAsm) + "</td>" +
+        '<td class="l">' + bar(r.dkAsm, dkMax, "dk") + "</td>" +
+        "<td>" + String(r.dkAsm1000).replace(".", ",") + "</td>" +
+        '<td class="' + (ltRx != null && ltRx < 200 ? "warn" : "") + '">' +
+        (ltRx != null ? num(ltRx) + " recept." : '<span class="dim">neparduodamas</span>') + "</td></tr>";
+    });
+    document.getElementById("tbl-dk10").innerHTML = h + "</tbody>";
+
+    /* paplitimo palyginimas */
+    var P = K.epi;
+    h = '<thead><tr><th class="l">Rodiklis</th><th>Asmenų</th><th>1000 gyv.</th><th class="l">Ką apima</th></tr></thead><tbody>';
+    h += '<tr><td class="l"><b>Lietuva 2025</b></td><td>' + num(E.years["2025"][0]) + "</td><td>" +
+      String(E.years["2025"][1]).replace(".", ",") + '</td><td class="l small">Bet kuris per metus užregistruotas G40/G41 atvejis, įskaitant šeimos gydytoją</td></tr>';
+    h += '<tr><td class="l"><b>Danija 2025</b></td><td>' + num(P.ligonines) + "</td><td>" +
+      String(P.ligonines1000).replace(".", ",") + '</td><td class="l small">Tik ligoninių kontaktai, kuriuose epilepsija — pagrindinė diagnozė</td></tr>';
+    h += '<tr><td class="l">Danija, 2021–2025 kaupiamai</td><td>' + num(P.penkmetis) + "</td><td>" +
+      String(P.penkmetis1000).replace(".", ",") + '</td><td class="l small">Unikalūs asmenys per penkerius metus — artimiausias palyginamas dydis</td></tr>';
+    h += '<tr><td class="l dim">Danija, publikuotas vertinimas</td><td class="dim">~36 000</td><td class="dim">~6</td>' +
+      '<td class="l small dim">Registrų tyrimas: 5 metų paplitimas 0,6 % — ne einamųjų metų statistika</td></tr>';
+    document.getElementById("tbl-prev").innerHTML = h + "</tbody>";
+  }
+
   /* ---------- paleidimas ---------- */
   var base = (window.PAGE && window.PAGE.base) || "";
   fetch(base + "assets/data.json").then(function (r) { return r.json(); }).then(function (D) {
@@ -434,6 +626,9 @@
       if (b) renderBrand(D, b);
     } else {
       renderIndex(D);
+      renderEpi(D);
+      renderDk(D);
+      renderTop10(D);
     }
     var redraw = function () { window.dispatchEvent(new Event("resize")); };
     if (window.matchMedia) {

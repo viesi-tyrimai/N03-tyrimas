@@ -13,27 +13,71 @@
 <body>
 <div class="wrap">
 <header>
-  <div class="eyebrow">ATC N03A · antiepilepsiniai vaistai · 2017–2026</div>
-  <h1>Antiepilepsiniai vaistai Lietuvoje</h1>
-  <p class="lede">Kiek kiekvieno preparato pakuočių pateko į Lietuvos rinką, kiek už juos sumokėjo Privalomojo sveikatos draudimo fondas ir patys pacientai, ir kiek jų realiai suvartojama. Viskas iš oficialių VVKT ir VLK atvirų duomenų.</p>
+  <div class="eyebrow">ATC N03A · epilepsijos gydymas · Lietuva ir Danija · 2017–2026</div>
+  <h1>Kuo Lietuvoje gydoma epilepsija</h1>
+  <p class="lede">Epilepsija serga apie 24,5 tūkst. Lietuvos gyventojų. Šis puslapis rodo, kiek jų yra, kokiais vaistais jie gydomi, kuo tas gydymas skiriasi nuo Danijos — ir kodėl naujos kartos vaistai Lietuvos pacientų beveik nepasiekia. Viskas iš oficialių VVKT, VLK, Higienos instituto, e. recepto ir Danijos medstat.dk duomenų.</p>
   <div class="stamp">
-    <span>VVKT · data.gov.lt</span><span>VLK · PSDF ataskaitos</span><span>Duomenys iki 2026-06</span>
+    <span>24 513 sergančiųjų 2025 m.</span><span>112 002 epilepsijos receptai</span><span>Duomenys iki 2026-06</span>
   </div>
 </header>
 
 <div class="kpis" id="kpis"></div>
 
 <section>
-  <h2>Suvartojimas pagal veikliąją medžiagą</h2>
-  <p class="sub">DDD 1000 gyventojų per dieną — tarptautinis vaistų suvartojimo matas. Rodo, kokia gyventojų dalis kasdien vartoja vidutinę palaikomąją dozę. Rodyklės nuspaudžiamos: spustelėk medžiagą, kad ją išjungtum.</p>
-  <div class="bar"><div class="legend" id="leg-s"></div></div>
-  <div class="chart" id="ch-subs"><svg></svg><div class="tip"></div></div>
-  <p class="note"><b>Bendras suvartojimas beveik nekinta.</b> Nuo 2017 m. rodiklis svyruoja siaurame ruože, nors atskirų medžiagų dalys keičiasi: valproatas ir karbamazepinas traukiasi, levetiracetamas ir lamotriginas auga. 2026 m. stulpelis rodo tik pirmą pusmetį, todėl jis natūraliai žemesnis.</p>
+  <h2>1 · Epilepsija sergantys žmonės Lietuvoje</h2>
+  <p class="sub">Higienos instituto duomenys iš Privalomojo sveikatos draudimo informacinės sistemos: asmenys, kuriems tais metais buvo užregistruota G40 arba G41 diagnozė. Tai ligotumas — kas per metus kreipėsi ir kam diagnozė įrašyta — o ne tikroji paplitimo statistika.</p>
+  <div class="chart" id="ch-epi"><svg></svg><div class="tip"></div></div>
+  <p class="note"><b>2020 m. kritimas nėra ligos atoslūgis.</b> Per pandemiją sumažėjo kontaktų su medicina, o ne sergančiųjų. Nuo tada rodiklis toliau lėtai mažėja: 9,70 (2017) → 8,48 (2025) iš 1000 gyventojų.</p>
+  <div class="twocol">
+    <div><h3 class="minih">Pagal lytį, 2025 m.</h3><div class="tablewrap"><table class="data" id="tbl-sex"></table></div></div>
+    <div><h3 class="minih">Pagal amžių, 2025 m.</h3><div class="tablewrap"><table class="data" id="tbl-age"></table></div></div>
+  </div>
+  <h3 class="minih">Pagal savivaldybes, 2025 m.</h3>
+  <p class="sub">Skirtumai tarp savivaldybių trigubi — nuo 5,6 Kauno r. iki 16,7 Rietavo sav. Tokio dydžio skirtumai greičiausiai rodo ne tikrą sergamumą, o skirtingą diagnozavimo ir registravimo praktiką.</p>
+  <div class="tablewrap"><table class="data" id="tbl-sav"><thead><tr>
+    <th class="l sortable" data-k="name">Savivaldybė</th>
+    <th class="sortable" data-k="n">Sergančių asmenų</th>
+    <th class="sortable" data-k="r">1000 gyventojų</th>
+  </tr></thead><tbody></tbody></table></div>
 </section>
 
 <section>
-  <h2>Visi preparatai</h2>
-  <p class="sub">Spustelėk stulpelio pavadinimą, kad rikiuotum. Preparato pavadinimas veda į atskirą puslapį su mėnesine istorija.</p>
+  <h2>2 · Kuo epilepsija gydoma Lietuvoje</h2>
+  <p class="sub">Perėjome visus 2025 m. e. recepto įrašus — 26,3 mln. receptų — ir atrinkome tuos, kuriuose gydytojo nurodyta diagnozė yra G40 arba G41. Tai vienintelis būdas atskirti epilepsijos gydymą nuo kitų N03A vaistų panaudojimų.</p>
+  <div class="tablewrap"><table class="data" id="tbl-lt10"></table></div>
+  <p class="note"><b>Pirmajame dešimtuke nėra nė vieno naujos kartos vaisto.</b> Lietuvos gydymo pagrindas — valproatas, karbamazepinas, levetiracetamas, lamotriginas ir klonazepamas; toliau dešimtuką užbaigia sultiamas, etosuksimidas ir fenobarbitalis, tai yra XX a. vidurio preparatai. Lakozamidas, brivaracetamas ir perampanelis kartu per visus 2025 m. surinko 19 receptų.</p>
+  <h3 class="minih">Kiek kiekvieno vaisto tenka būtent epilepsijai</h3>
+  <p class="sub">Ne visi N03A vaistai gydo epilepsiją. Ta pati e. recepto analizė rodo, kokia kiekvienos medžiagos receptų dalis išrašyta su epilepsijos diagnoze, o kokia — kitoms ligoms.</p>
+  <div class="tablewrap"><table class="data" id="tbl-rxatc"></table></div>
+  <p class="note"><b>Klonazepamas — daugiausiai išrašomas „antiepilepsinis“ vaistas, kuris daugiausia nėra nuo epilepsijos.</b> 66 845 receptai, iš jų epilepsijai — 13 544 (20,3 %); likusieji skiriami depresijai, miego sutrikimams ir nerimui. Karbamazepino epilepsijai tenka 55,2 %, valproato — 66,4 %. Priešingoje pusėje levetiracetamas (97,2 %) ir okskarbazepinas (95,3 %). Todėl bendri N03A pardavimų skaičiai epilepsijos gydymo nematuoja.</p>
+</section>
+
+<section>
+  <h2>3 · Kuo epilepsija gydoma Danijoje</h2>
+  <p class="sub">Danijos vaistų statistikos registras (medstat.dk) skelbia, kiek žmonių per metus bent kartą atsiėmė kiekvieno vaisto receptą vaistinėje. Diagnozės Danijos duomenyse nėra, todėl šis dešimtukas apima visus N03A vartotojus, ne vien sergančius epilepsija — kaip ir Lietuvoje, dalis šių vaistų skiriama psichiatrijoje.</p>
+  <div class="tablewrap"><table class="data" id="tbl-dk10"></table></div>
+  <p class="note"><b>Danijos dešimtuke naujos kartos vaistai užima tris vietas.</b> Lakozamidas (2 765 žmonės), brivaracetamas (1 585) ir zonizamidas (1 385) yra įprasta gydymo dalis. Lietuvoje tos pačios trys medžiagos 2025 m. surinko atitinkamai 10, 4 ir 112 receptų. Antra ryški skirtis — lamotriginas: Danijoje jį vartoja 50 650 žmonių, tai daugiau nei pusė visų N03A vartotojų.</p>
+</section>
+
+<section>
+  <h2>4 · Lietuva ir Danija greta</h2>
+  <p class="sub">Danija — 6,0 mln. gyventojų, vieša sveikatos sistema, panašus ekonominis lygis. Palyginimas prasmingas, bet tik tada, kai aiškiai pasakoma, kas kiekvienoje šalyje matuojama.</p>
+  <div class="kpis" id="kpis-dk"></div>
+  <h3 class="minih">Sergančiųjų skaičius: kodėl tiesiogiai lyginti negalima</h3>
+  <div class="tablewrap"><table class="data" id="tbl-prev"></table></div>
+  <p class="note"><b>Lietuvos 8,48 ir Danijos 2,32 iš 1000 nėra tas pats rodiklis.</b> Lietuvos skaičius apima bet kurį per metus užregistruotą G40 atvejį, įskaitant šeimos gydytoją; Danijos — tik ligoninių kontaktus, kuriuose epilepsija buvo pagrindinė diagnozė, todėl stabilūs pacientai, kurie tik atsinaujina vaistus, į jį nepatenka. Danija registrais paremto viso paplitimo neskelbia. Palyginami dydžiai yra Danijos penkerių metų kaupiamasis rodiklis 5,87 iš 1000 ir publikuotas vertinimas apie 6 iš 1000 — tos pačios eilės kaip Lietuvos 8,48.</p>
+  <h3 class="minih">Gydymas: kiekvienas vaistas atskirai</h3>
+  <p class="sub">Danijoje matuojami asmenys, per metus atsiėmę receptą; Lietuvoje tokio rodiklio atviruose duomenyse nėra, todėl abiem šalims rodomas ir tarptautinis suvartojimo matas DDD 1000 gyventojų per dieną. Naujos kartos vaistai pažymėti.</p>
+  <div class="tablewrap"><table class="data" id="tbl-dk"></table></div>
+  <p class="note"><b>Skirtumas ne procentinis, o kartotinis.</b> Danijoje naujos kartos vaistai sudaro apie 9,5 % viso antiepilepsinių vaistų suvartojimo, Lietuvoje — 0,22 %. Bendras suvartojimas Danijoje 13,7 DDD/1000 gyv. per dieną, Lietuvoje 7,48. Cenobamato ir eslikarbazepino Lietuvoje neparduota nė vienos pakuotės, nors Ontozry ir Zebinix yra registruoti.</p>
+  <h3 class="minih">Kas Lietuvoje registruota, bet neparduodama</h3>
+  <p class="sub">Šie prekiniai pavadinimai turi arba turėjo registracijas Lietuvoje, tačiau VVKT pardavimų duomenyse 2017–2026 m. neturi nė vienos parduotos pakuotės. Tarp jų — dauguma naujos kartos vaistų. Registracija dar nereiškia, kad vaistas pasiekia pacientą.</p>
+  <div class="cards" id="unsold"></div>
+</section>
+
+<section>
+  <h2>Priedas · visi Lietuvoje parduodami preparatai</h2>
+  <p class="sub">Visa N03A grupė, įskaitant vaistus, kurie epilepsijai skiriami retai. Preparato pavadinimas veda į atskirą puslapį su mėnesine pardavimų istorija.</p>
   <div class="filterrow">
     <input id="q" type="search" placeholder="Ieškoti pavadinimo, medžiagos ar ATC kodo" aria-label="Paieška">
     <select id="subsel" aria-label="Veiklioji medžiaga"><option value="">Visos veikliosios medžiagos</option></select>
@@ -50,12 +94,11 @@
     <th class="sortable" data-k="rec">Receptai 2025</th>
     <th class="l">Tiekimas</th>
   </tr></thead><tbody></tbody></table></div>
-</section>
-
-<section>
-  <h2>Registruota, bet neparduodama</h2>
-  <p class="sub">Šie prekiniai pavadinimai turi galiojančias arba turėjo registracijas Lietuvoje, tačiau VVKT pardavimų duomenyse 2017–2026 m. neturi nė vienos parduotos pakuotės. Registracija dar nereiškia, kad vaistas pasiekia pacientą.</p>
-  <div class="cards" id="unsold"></div>
+  <h3 class="minih">Suvartojimas pagal veikliąją medžiagą</h3>
+  <div class="bar"><div class="legend" id="leg-s"></div></div>
+  <div class="chart" id="ch-subs"><svg></svg><div class="tip"></div></div>
+  <h3 class="minih">Dažniausios ne epilepsijos diagnozės, 2025 m.</h3>
+  <div class="tablewrap"><table class="data" id="tbl-rxdiag"></table></div>
 </section>
 
 <footer>
@@ -67,6 +110,11 @@
     <li><b>DDD</b> (nustatytoji paros dozė) apskaičiuota iš stiprumo ir pakuotės dydžio, dalijant iš PSO normos; normos paimtos iš VVKT rinkinio „Vaistinių preparatų vartojimo ir sudėties parametrai“. Rodiklis 1000 gyventojų per dieną naudoja Valstybės duomenų agentūros nuolatinių gyventojų skaičių metų pradžioje. Kontrolė: 2025 m. visos N03A grupės rodiklis pagal šį skaičiavimą — 7,48, VVKT skelbia 7,69 (skirtumas 2,7 %). Brivaracetamui, cenobamatui ir kanabidioliui PSO DDD nėra nustatyta, todėl jie į rodiklį neįskaičiuoti.</li>
     <li><b>Pacientų skaičius</b> nesumuojamas per stiprumus ar preparatus — tas pats žmogus gali gauti kelis.</li>
     <li>2026 m. duomenys nepilni: pakuotės — iki birželio, eurai — I ketvirtis.</li>
+    <li><b>„Naujos kartos“ vaistai</b> šiame puslapyje — trečiosios kartos antiepilepsiniai preparatai: lakozamidas, brivaracetamas, perampanelis, eslikarbazepinas, cenobamatas, rufinamidas, stiripentolis, zonizamidas ir kanabidiolis. Antrosios kartos vaistai (lamotriginas, levetiracetamas, topiramatas, okskarbazepinas, vigabatrinas) į šią grupę neįtraukti, nors literatūroje riba nėra griežta.</li>
+    <li><b>Danijos duomenys</b> — medstat.dk (Sundhedsdatastyrelsen), 2025 m., pirminis sektorius. „Asmenų skaičius“ ten reiškia žmones, per metus bent kartą atsiėmusius receptą vaistinėje; ligoninėse suvartoti vaistai (~1,5 % viso kiekio, bet beveik visas kanabidiolis) į jį nepatenka, o asmenų skaičių sumuoti per skirtingas medžiagas negalima — tas pats žmogus vartoja kelis vaistus. Lietuvos DDD skaičiuotas iš didmeninių pardavimų ir apima ir ligonines. Todėl lyginamos dydžių eilės, ne dešimtosios dalys.</li>
+    <li><b>ATC kodų neatitikimas.</b> Danijos registre N03AX24 = kanabidiolis, N03AX25 = cenobamatas, N03AX26 = fenfluraminas; VVKT duomenyse cenobamatas žymimas N03AX24. Dėl to Lietuvos ir Danijos duomenys sugretinti pagal veikliosios medžiagos pavadinimą, ne pagal kodą.</li>
+    <li><b>Sergančiųjų skaičius</b> — Higienos instituto sveikatos statistikos portalas (Privalomojo sveikatos draudimo IS), diagnozių eilutė „G40-G41 epilepsija, epilepsinė būklė“. Tai <i>ligotumas</i>: asmenys, kuriems tais metais buvo užregistruota diagnozė, o ne tikroji paplitimo statistika. Lyties, amžiaus ir savivaldybių pjūviai sumuojasi į nacionalinį skaičių (24 513 2025 m.).</li>
+    <li><b>Receptai pagal diagnozę</b> — ESPBI e. recepto posistemės duomenys (VĮ Registrų centras, atvirų duomenų rinkinys 2020). Perskaityti visi keturi 2025 m. ketvirčiai — 26 299 441 recepto eilutė — ir atrinkti tie, kurių ATC kodas prasideda N03A. Diagnozė imama iš recepto lauko <code>ligos_kodas</code>. Retos diagnozės (mažiau kaip 10 receptų per ketvirtį) šaltinyje nuasmenintos ir pažymėtos „Neatveriama“, todėl smulkiausios grupės gali būti kiek per mažos. Prekiniai pavadinimai receptuose beveik visada tušti — gydytojai skiria pagal bendrinį pavadinimą.</li>
   </ul>
   <h3>Šaltiniai</h3>
   <ul>
@@ -74,6 +122,9 @@
     <li><a href="https://data.gov.lt/datasets/3802/" target="_blank" rel="noopener">data.gov.lt — Vaistinių preparatų vartojimo ir sudėties parametrai (VVKT)</a></li>
     <li><a href="https://vapris.vvkt.lt/vvkt-web/public/medications?atcCode=N03A&amp;showData=true" target="_blank" rel="noopener">VAPRIS — N03A registracijos</a></li>
     <li><a href="https://ligoniukasa.lrv.lt/lt/veiklos-sritys/gydymo-istaigoms-ir-partneriams/kompensuojamieji-vaistai-ir-medicinos-pagalbos-priemones-2/statistika-1/" target="_blank" rel="noopener">VLK — kompensuojamųjų vaistų statistika</a></li>
+    <li><a href="https://stat.hi.lt/default.aspx?report_id=153" target="_blank" rel="noopener">Higienos institutas — sergančių asmenų skaičius</a></li>
+    <li><a href="https://data.gov.lt/datasets/2020/" target="_blank" rel="noopener">data.gov.lt — ESPBI IS e. recepto duomenys apie gydytojų skirtus vaistus</a></li>
+    <li><a href="https://medstat.dk/da/download" target="_blank" rel="noopener">medstat.dk — Danijos vaistų statistika (Sundhedsdatastyrelsen)</a></li>
   </ul>
 </footer>
 </div>
