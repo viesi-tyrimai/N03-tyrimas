@@ -620,7 +620,7 @@
 
   /* ---------- paleidimas ---------- */
   var base = (window.PAGE && window.PAGE.base) || "";
-  fetch(base + "assets/data.json").then(function (r) { return r.json(); }).then(function (D) {
+  fetch(base + "assets/data.json?v=" + (window.PAGE.v || "")).then(function (r) { return r.json(); }).then(function (D) {
     if (window.PAGE.type === "brand") {
       var b = D.brands.filter(function (x) { return x.slug === window.PAGE.slug; })[0];
       if (b) renderBrand(D, b);
