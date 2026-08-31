@@ -28,6 +28,28 @@
   <p class="sub">Higienos instituto duomenys iš Privalomojo sveikatos draudimo informacinės sistemos: asmenys, kuriems tais metais buvo užregistruota G40 arba G41 diagnozė. Tai ligotumas — kas per metus kreipėsi ir kam diagnozė įrašyta — o ne tikroji paplitimo statistika.</p>
   <div class="chart" id="ch-epi"><svg></svg><div class="tip"></div></div>
   <p class="note"><b>2020 m. kritimas nėra ligos atoslūgis.</b> Per pandemiją sumažėjo kontaktų su medicina, o ne sergančiųjų. Nuo tada rodiklis toliau lėtai mažėja: 9,70 (2017) → 8,48 (2025) iš 1000 gyventojų.</p>
+
+  <h3 class="minih">Ko šis skaičius neapima</h3>
+  <p class="sub">Įrašas atsiranda iš kontakto su medicina, ne iš ligos: į skaičių patenka tie, kuriems tais metais buvo užregistruota bent viena PSDF apmokėta paslauga su G40 ar G41 diagnoze. Kas per metus pas gydytoją neatėjo, į jį nepatenka, nors serga. Todėl 24 513 laikytina apatine riba.</p>
+  <div class="tablewrap"><table class="data">
+    <thead><tr><th class="l">Veiksnys</th><th class="l">Kryptis</th><th class="l">Apytikslis dydis</th><th class="l">Ar išmatuojama iš atvirų duomenų</th></tr></thead>
+    <tbody>
+      <tr><td class="l">Tais metais nesikreipė į gydytoją</td><td class="l"><span class="pill no">per mažas</span></td><td class="l">bent 1 700 (2020 m. kritimo mastas, −6,4 %)</td><td class="l small">Netiesiogiai — pagal pandemijos metų duobę</td></tr>
+      <tr><td class="l">Gydomi tik privačiai, ne PSDF lėšomis</td><td class="l"><span class="pill no">per mažas</span></td><td class="l dim">nežinoma</td><td class="l small">Ne — tokių paslaugų duomenyse nėra</td></tr>
+      <tr><td class="l">Traukuliai koduojami pagal priežastį (R56, C71, T51)</td><td class="l"><span class="pill no">per mažas</span></td><td class="l">kelios dešimtys–keli šimtai žmonių</td><td class="l small">Taip — 229 tokie levetiracetamo receptai iš 20 186</td></tr>
+      <tr><td class="l">Serga, bet visai nesigydo arba nediagnozuoti</td><td class="l"><span class="pill no">per mažas</span></td><td class="l dim">nežinoma</td><td class="l small">Ne — nė viename registre jų nėra</td></tr>
+      <tr><td class="l">Ilgoje remisijoje, per metus vienas patikros vizitas</td><td class="l"><span class="pill ok">per didelis</span></td><td class="l dim">nežinoma</td><td class="l small">Ne — vizito priežastis duomenyse neskiriama</td></tr>
+    </tbody>
+  </table></div>
+  <h3 class="minih">Galima paklaida</h3>
+  <p class="sub">Trys atskaitos taškai. Pirmasis išmatuotas, antrasis — pataisa, kurios dydis paimtas iš 2020 m. duobės, trečiasis — tarptautinio aktyvios epilepsijos paplitimo intervalo (5–10 iš 1000 gyventojų) viršutinė riba. Tikroji reikšmė greičiausiai yra tarp pirmojo ir trečiojo.</p>
+  <div class="kpis">
+    <div class="kpi"><div class="k-label">Apatinė riba · išmatuota</div><div class="k-val">24 513</div><div class="k-note">8,48 iš 1000 — Higienos instituto 2025 m. duomenys</div></div>
+    <div class="kpi"><div class="k-label">Su nesikreipimo pataisa · vertinimas</div><div class="k-val">~26 200</div><div class="k-note">9,1 iš 1000 — pridėjus 2020 m. dydžio spragą (+6,4 %)</div></div>
+    <div class="kpi"><div class="k-label">Viršutinė riba · literatūra</div><div class="k-val">~29 000</div><div class="k-note">10,0 iš 1000 — aktyvios epilepsijos paplitimo intervalo viršus</div></div>
+  </div>
+  <p class="note"><b>Praktiškai tai reiškia maždaug ±10–15 % neapibrėžtumą, nukreiptą į vieną pusę.</b> Beveik visi neišmatuojami veiksniai skaičių mažina, o vienintelis jį didinantis — remisijoje esantys pacientai — yra mažesnis, nes vienas vizitas per metus dažniausiai reiškia ir tęsiamą gydymą. Vaistų vartojimas spragos beveik nepadidina: kompensuojamąjį receptą išrašo gydytojas ir jame pačiame įrašoma diagnozė, o receptai atnaujinami vidutiniškai 4,6 karto per metus, todėl nuolat vaistus vartojantis žmogus G40 įrašą sukuria beveik neišvengiamai. Visi šio puslapio rodikliai „iš 1000 gyventojų" skaičiuojami nuo išmatuotos apatinės ribos, ne nuo vertinimo.</p>
+
   <div class="twocol">
     <div><h3 class="minih">Pagal lytį, 2025 m.</h3><div class="tablewrap"><table class="data" id="tbl-sex"></table></div></div>
     <div><h3 class="minih">Pagal amžių, 2025 m.</h3><div class="tablewrap"><table class="data" id="tbl-age"></table></div></div>
@@ -113,7 +135,7 @@
     <li><b>„Naujos kartos“ vaistai</b> šiame puslapyje — trečiosios kartos antiepilepsiniai preparatai: lakozamidas, brivaracetamas, perampanelis, eslikarbazepinas, cenobamatas, rufinamidas, stiripentolis, zonizamidas ir kanabidiolis. Antrosios kartos vaistai (lamotriginas, levetiracetamas, topiramatas, okskarbazepinas, vigabatrinas) į šią grupę neįtraukti, nors literatūroje riba nėra griežta.</li>
     <li><b>Danijos duomenys</b> — medstat.dk (Sundhedsdatastyrelsen), 2025 m., pirminis sektorius. „Asmenų skaičius“ ten reiškia žmones, per metus bent kartą atsiėmusius receptą vaistinėje; ligoninėse suvartoti vaistai (~1,5 % viso kiekio, bet beveik visas kanabidiolis) į jį nepatenka, o asmenų skaičių sumuoti per skirtingas medžiagas negalima — tas pats žmogus vartoja kelis vaistus. Lietuvos DDD skaičiuotas iš didmeninių pardavimų ir apima ir ligonines. Todėl lyginamos dydžių eilės, ne dešimtosios dalys.</li>
     <li><b>ATC kodų neatitikimas.</b> Danijos registre N03AX24 = kanabidiolis, N03AX25 = cenobamatas, N03AX26 = fenfluraminas; VVKT duomenyse cenobamatas žymimas N03AX24. Dėl to Lietuvos ir Danijos duomenys sugretinti pagal veikliosios medžiagos pavadinimą, ne pagal kodą.</li>
-    <li><b>Sergančiųjų skaičius</b> — Higienos instituto sveikatos statistikos portalas (Privalomojo sveikatos draudimo IS), diagnozių eilutė „G40-G41 epilepsija, epilepsinė būklė“. Tai <i>ligotumas</i>: asmenys, kuriems tais metais buvo užregistruota diagnozė, o ne tikroji paplitimo statistika. Lyties, amžiaus ir savivaldybių pjūviai sumuojasi į nacionalinį skaičių (24 513 2025 m.).</li>
+    <li><b>Sergančiųjų skaičius</b> — Higienos instituto sveikatos statistikos portalas (Privalomojo sveikatos draudimo IS), diagnozių eilutė „G40-G41 epilepsija, epilepsinė būklė“. Tai <i>ligotumas</i>: asmenys, kuriems tais metais buvo užregistruota diagnozė, o ne tikroji paplitimo statistika. Lyties, amžiaus ir savivaldybių pjūviai sumuojasi į nacionalinį skaičių (24 513 2025 m.). Skaičiaus ribos ir galima paklaida aptartos 1 skyriuje; visi rodikliai „iš 1000 gyventojų“ skaičiuojami nuo šios išmatuotos apatinės ribos.</li>
     <li><b>Receptai pagal diagnozę</b> — ESPBI e. recepto posistemės duomenys (VĮ Registrų centras, atvirų duomenų rinkinys 2020). Perskaityti visi keturi 2025 m. ketvirčiai — 26 299 441 recepto eilutė — ir atrinkti tie, kurių ATC kodas prasideda N03A. Diagnozė imama iš recepto lauko <code>ligos_kodas</code>. Retos diagnozės (mažiau kaip 10 receptų per ketvirtį) šaltinyje nuasmenintos ir pažymėtos „Neatveriama“, todėl smulkiausios grupės gali būti kiek per mažos. Prekiniai pavadinimai receptuose beveik visada tušti — gydytojai skiria pagal bendrinį pavadinimą.</li>
   </ul>
   <h3>Šaltiniai</h3>
