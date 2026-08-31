@@ -7,7 +7,7 @@
 <meta name="color-scheme" content="light dark">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%8A%3C/text%3E%3C/svg%3E">
 <title>Levetiracetam Teva — pardavimai ir kompensavimas</title>
-<link rel="stylesheet" href="../assets/style.css?v=44729ce3">
+<link rel="stylesheet" href="../assets/style.css?v=218e238f">
 <style>html{background:#f3f5f8}@media(prefers-color-scheme:dark){html:not([data-theme="light"]){background:#0d0e10}}html[data-theme="dark"]{background:#0d0e10}</style>
 </head>
 <body>
@@ -43,6 +43,18 @@
   <div class="chart" id="ch-money"><svg></svg><div class="tip"></div></div>
 </section>
 
+
+<section id="sec-rx">
+  <h2>Receptai pagal diagnozę, 2020–2025 m.</h2>
+  <p class="sub">Kiek šios veikliosios medžiagos receptų per metus išrašyta būtent epilepsijai, o kiek kitoms ligoms. Duomenys iš e. recepto — jame fiksuojamas ne prekinis, o bendrinis pavadinimas, todėl skaičiai apima visus tos medžiagos preparatus, ne vien šį. Serija prasideda 2020 m., nes anksčiau e. recepto aprėptis dar nebuvo pilna.</p>
+  <div class="kpis" id="kpis-rx2"></div>
+  <div class="bar"><div class="legend" id="leg-rx"></div></div>
+  <div class="chart" id="ch-rx"><svg></svg><div class="tip"></div></div>
+  <div class="tablewrap"><table class="data" id="tbl-rx"></table></div>
+  <div id="rx-note"></div>
+  <div id="rx-kitos"></div>
+</section>
+
 <section>
   <h2>Metinė suvestinė</h2>
   <div class="tablewrap"><table class="data" id="tbl"></table></div>
@@ -67,7 +79,7 @@
     <li><b>Danijos duomenys</b> — medstat.dk (Sundhedsdatastyrelsen), 2025 m., pirminis sektorius. „Asmenų skaičius“ ten reiškia žmones, per metus bent kartą atsiėmusius receptą vaistinėje; ligoninėse suvartoti vaistai (~1,5 % viso kiekio, bet beveik visas kanabidiolis) į jį nepatenka, o asmenų skaičių sumuoti per skirtingas medžiagas negalima — tas pats žmogus vartoja kelis vaistus. Lietuvos DDD skaičiuotas iš didmeninių pardavimų ir apima ir ligonines. Todėl lyginamos dydžių eilės, ne dešimtosios dalys.</li>
     <li><b>ATC kodų neatitikimas.</b> Danijos registre N03AX24 = kanabidiolis, N03AX25 = cenobamatas, N03AX26 = fenfluraminas; VVKT duomenyse cenobamatas žymimas N03AX24. Dėl to Lietuvos ir Danijos duomenys sugretinti pagal veikliosios medžiagos pavadinimą, ne pagal kodą.</li>
     <li><b>Sergančiųjų skaičius</b> — Higienos instituto sveikatos statistikos portalas (Privalomojo sveikatos draudimo IS), diagnozių eilutė „G40-G41 epilepsija, epilepsinė būklė“. Tai <i>ligotumas</i>: asmenys, kuriems tais metais buvo užregistruota diagnozė, o ne tikroji paplitimo statistika. Lyties, amžiaus ir savivaldybių pjūviai sumuojasi į nacionalinį skaičių (24 513 2025 m.). Skaičiaus ribos ir galima paklaida aptartos 1 skyriuje; visi rodikliai „iš 1000 gyventojų“ skaičiuojami nuo šios išmatuotos apatinės ribos.</li>
-    <li><b>Receptai pagal diagnozę</b> — ESPBI e. recepto posistemės duomenys (VĮ Registrų centras, atvirų duomenų rinkinys 2020). Perskaityti visi keturi 2025 m. ketvirčiai — 26 299 441 recepto eilutė — ir atrinkti tie, kurių ATC kodas prasideda N03A. Diagnozė imama iš recepto lauko <code>ligos_kodas</code>. Retos diagnozės (mažiau kaip 10 receptų per ketvirtį) šaltinyje nuasmenintos ir pažymėtos „Neatveriama“, todėl smulkiausios grupės gali būti kiek per mažos. Prekiniai pavadinimai receptuose beveik visada tušti — gydytojai skiria pagal bendrinį pavadinimą.</li>
+    <li><b>Receptai pagal diagnozę</b> — ESPBI e. recepto posistemės duomenys (VĮ Registrų centras, atvirų duomenų rinkinys 2020). Vaistų puslapiuose pateikiama 2020–2025 m. eilutė (24 ketvirčiai, 112,8 mln. recepto eilučių); ji prasideda 2020 m., nes anksčiau e. recepto aprėptis dar augo — 2017 m. I ketvirtį užfiksuota tik apie dešimtadalį vėlesnio lygio, 2019 m. — apie 90 %. Receptuose nurodomas bendrinis, ne prekinis pavadinimas, todėl vaisto puslapio receptų skaičiai apima visus tos veikliosios medžiagos preparatus. Pradinio puslapio pjūviams perskaityti visi keturi 2025 m. ketvirčiai — 26 299 441 recepto eilutė — ir atrinkti tie, kurių ATC kodas prasideda N03A. Diagnozė imama iš recepto lauko <code>ligos_kodas</code>. Retos diagnozės (mažiau kaip 10 receptų per ketvirtį) šaltinyje nuasmenintos ir pažymėtos „Neatveriama“, todėl smulkiausios grupės gali būti kiek per mažos. Prekiniai pavadinimai receptuose beveik visada tušti — gydytojai skiria pagal bendrinį pavadinimą.</li>
   </ul>
   <h3>Šaltiniai</h3>
   <ul>
@@ -81,7 +93,7 @@
   </ul>
 </footer>
 </div>
-<script>window.PAGE={type:"brand",slug:"levetiracetam-teva",base:"../",v:"44729ce3"};</script>
-<script src="../assets/app.js?v=44729ce3"></script>
+<script>window.PAGE={type:"brand",slug:"levetiracetam-teva",base:"../",v:"218e238f"};</script>
+<script src="../assets/app.js?v=218e238f"></script>
 </body>
 </html>

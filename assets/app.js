@@ -305,6 +305,103 @@
     document.getElementById("tbl-regs").innerHTML = rt + "</tbody>";
   }
 
+  /* ---------- receptai pagal diagnozę (vaisto puslapyje) ---------- */
+  function renderRx(D, brand) {
+    var R = D.rx, box = document.getElementById("sec-rx");
+    if (!R || !box) return;
+    var codes = (brand.atc || []).filter(function (c) { return R.atc[c]; });
+    if (!codes.length) {
+      box.innerHTML = '<h2>Receptai pagal diagnozę</h2><p class="sub">Šios veikliosios medžiagos ' +
+        'e. recepto duomenyse 2020–2025 m. nėra — arba ji Lietuvoje neskiriama receptu, arba receptų ' +
+        'skaičius mažesnis už šaltinio nuasmeninimo ribą (10 receptų diagnozei per ketvirtį).</p>';
+      return;
+    }
+    var Y = R.metai, n = Y.length;
+    var visi = new Array(n).fill(0), g40 = new Array(n).fill(0);
+    codes.forEach(function (c) {
+      for (var k = 0; k < n; k++) { visi[k] += R.atc[c].visi[k]; g40[k] += R.atc[c].g40[k]; }
+    });
+    var kitos = [];
+    codes.forEach(function (c) { kitos = kitos.concat(R.atc[c].kitos); });
+    kitos.sort(function (a, b) { return b[2] - a[2]; });
+
+    var ser = [{ key: "g40", name: "Epilepsijos diagnozė (G40, G41)", css: "--s4" },
+               { key: "kita", name: "Kitos diagnozės", css: "--s5" }];
+    var off = {};
+    var ch = new StackChart(document.getElementById("ch-rx"), {
+      aria: brand.subs.join(", ") + " receptai pagal diagnozę",
+      rows: function () {
+        return Y.map(function (y, k) {
+          return { label: String(y), year: String(y), vals: { g40: g40[k], kita: visi[k] - g40[k] }, k: k };
+        });
+      },
+      series: function () { return ser.filter(function (s) { return !off[s.key]; }); },
+      maxBar: 56,
+      yTick: function (v) { return v >= 1000 ? num(v / 1000) + "k" : num(v); },
+      xLabel: function (r) { return r.label; },
+      topLabel: function (r) { return visi[r.k] ? pct(g40[r.k] / visi[r.k], 0) : null; },
+      tipHtml: function (r) {
+        return '<div class="t-head">' + r.label + " m.</div><table>" +
+          '<tr><td class="n"><span class="dot" style="background:' + cv("--s4") + '"></span>Epilepsijai</td><td class="v">' + num(r.vals.g40) + "</td></tr>" +
+          '<tr><td class="n"><span class="dot" style="background:' + cv("--s5") + '"></span>Kitoms ligoms</td><td class="v">' + num(r.vals.kita) + "</td></tr>" +
+          '<tr class="tot"><td>Iš viso</td><td class="v">' + num(visi[r.k]) + "</td></tr>" +
+          '<tr><td class="n">Epilepsijos dalis</td><td class="v">' + (visi[r.k] ? pct(g40[r.k] / visi[r.k]) : "—") + "</td></tr></table>";
+      }
+    });
+    legendInto(document.getElementById("leg-rx"), ser, off, function () { ch.draw(); });
+    ch.draw();
+
+    var k0 = 0, k1 = n - 1;
+    var kp = [
+      { l: "Epilepsijos receptų, " + Y[k1] + " m.", v: num(g40[k1]),
+        n: visi[k1] ? pct(g40[k1] / visi[k1]) + " visų šios medžiagos receptų" : "—" },
+      { l: "Pokytis " + Y[k0] + "–" + Y[k1] + " m.",
+        v: (g40[k0] ? ((g40[k1] >= g40[k0] ? "+" : "−") + Math.abs((g40[k1] / g40[k0] - 1) * 100).toFixed(0) + " %") : "—"),
+        n: num(g40[k0]) + " → " + num(g40[k1]) + " epilepsijos receptų per metus" },
+      { l: "Visi receptai, " + Y[k1] + " m.", v: num(visi[k1]),
+        n: codes.length > 1 ? codes.join(" + ") : codes[0] }
+    ];
+    document.getElementById("kpis-rx2").innerHTML = kp.map(function (x) {
+      return '<div class="kpi"><div class="k-label">' + esc(x.l) + '</div><div class="k-val">' + x.v +
+        '</div><div class="k-note">' + esc(x.n) + "</div></div>";
+    }).join("");
+
+    var t = '<thead><tr><th class="l">Metai</th><th>Iš viso receptų</th><th>Iš jų epilepsijai</th>' +
+      '<th>Kitoms ligoms</th><th>Epilepsijos dalis</th></tr></thead><tbody>';
+    Y.forEach(function (y, k) {
+      t += '<tr><td class="l">' + y + "</td><td>" + num(visi[k]) + "</td><td><b>" + num(g40[k]) +
+        "</b></td><td>" + num(visi[k] - g40[k]) + "</td><td>" +
+        (visi[k] ? pct(g40[k] / visi[k]) : '<span class="dim">—</span>') + "</td></tr>";
+    });
+    document.getElementById("tbl-rx").innerHTML = t + "</tbody>";
+
+    var nbox = document.getElementById("rx-note");
+    if (nbox && visi[k0] && visi[k1]) {
+      var d0 = g40[k0] / visi[k0] * 100, d1 = g40[k1] / visi[k1] * 100, dd = d1 - d0;
+      if (Math.abs(dd) >= 5 && visi[k1] >= 500) {
+        nbox.innerHTML = '<p class="note"><b>Epilepsijai tenkanti dalis per šešerius metus ' +
+          (dd < 0 ? "sumažėjo" : "padidėjo") + " nuo " + pct(d0 / 100) + " iki " + pct(d1 / 100) + ".</b> " +
+          (dd < 0
+            ? "Epilepsijos receptų skaičius " + (g40[k1] >= g40[k0] ? "net paaugo" : "sumažėjo") +
+              " (" + num(g40[k0]) + " → " + num(g40[k1]) + "), o kitoms ligoms skiriamų — nuo " +
+              num(visi[k0] - g40[k0]) + " iki " + num(visi[k1] - g40[k1]) +
+              ". Ši medžiaga vis labiau vartojama ne epilepsijai."
+            : "Kitoms ligoms skiriamų receptų dalis traukiasi — vaistas grįžta prie pagrindinės indikacijos.") +
+          "</p>";
+      } else { nbox.innerHTML = ""; }
+    }
+
+    var kbox = document.getElementById("rx-kitos");
+    if (kitos.length) {
+      kbox.innerHTML = '<h3 class="minih">Kam dar skiriama</h3>' +
+        '<p class="sub">Dažniausios ne epilepsijos diagnozės ' + Y[k1] + ' m.</p>' +
+        '<div class="cards">' + kitos.slice(0, 5).map(function (r) {
+          return '<div class="card"><b>' + esc(r[1] || r[0]) + '</b><span>' + esc(r[0]) + " · " +
+            num(r[2]) + " receptų</span></div>";
+        }).join("") + "</div>";
+    } else { kbox.innerHTML = ""; }
+  }
+
   /* ---------- augimo išskaidymas (vaisto puslapyje) ---------- */
   function minus(s) { return String(s).replace(/^-/, "−"); }
 
@@ -574,6 +671,37 @@
     });
     srender();
 
+    /* du nepriklausomi šaltiniai */
+    var S2 = D.rx, box2 = document.getElementById("tbl-2sources");
+    if (S2 && box2) {
+      var rxBy = {};
+      S2.metai.forEach(function (y, k) { rxBy[String(y)] = S2.n03aG40[k]; });
+      var ys = Object.keys(E.years).sort();
+      var ddd = {};
+      ys.forEach(function (y) {
+        var s = 0;
+        for (var sub in D.substanceDdd) s += D.substanceDdd[sub][y] || 0;
+        ddd[y] = s / 365 / (D.population[y] / 1000);
+      });
+      var h2 = '<thead><tr><th class="l">Metai</th><th>Serga · Higienos institutas</th><th>Pokytis</th>' +
+        '<th>Suvartojimas · VVKT, DDD/1000/d</th><th>Pokytis</th>' +
+        '<th>Epilepsijos receptų · e. receptas</th></tr></thead><tbody>';
+      ys.forEach(function (y, k) {
+        var pv = ys[k - 1];
+        function dl(now, was) {
+          if (!pv || !was) return '<td class="dim">—</td>';
+          var p = (now / was - 1) * 100;
+          return '<td class="' + (p < -1.5 ? "neg" : p > 1.5 ? "pos" : "") + '">' +
+            (p >= 0 ? "+" : "−") + Math.abs(p).toFixed(1).replace(".", ",") + " %</td>";
+        }
+        h2 += '<tr' + (y === "2020" ? ' class="hl"' : "") + '><td class="l">' + y + "</td>" +
+          "<td>" + num(E.years[y][0]) + "</td>" + dl(E.years[y][0], pv && E.years[pv][0]) +
+          "<td>" + ddd[y].toFixed(2).replace(".", ",") + "</td>" + dl(ddd[y], pv && ddd[pv]) +
+          "<td>" + (rxBy[y] != null ? num(rxBy[y]) : '<span class="dim">nepilna aprėptis</span>') + "</td></tr>";
+      });
+      box2.innerHTML = h2 + "</tbody>";
+    }
+
     /* receptai */
     var R = E.rx2025, share = R.n03aSuG40 / R.n03aVisi;
     var rxBox = document.getElementById("kpis-rx");
@@ -702,7 +830,7 @@
   fetch(base + "assets/data.json?v=" + (window.PAGE.v || "")).then(function (r) { return r.json(); }).then(function (D) {
     if (window.PAGE.type === "brand") {
       var b = D.brands.filter(function (x) { return x.slug === window.PAGE.slug; })[0];
-      if (b) { renderBrand(D, b); renderGrowth(D); }
+      if (b) { renderBrand(D, b); renderRx(D, b); renderGrowth(D); }
     } else {
       renderIndex(D);
       renderEpi(D);

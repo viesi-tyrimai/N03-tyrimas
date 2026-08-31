@@ -7,7 +7,7 @@
 <meta name="color-scheme" content="light dark">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%8A%3C/text%3E%3C/svg%3E">
 <title>Kuo Lietuvoje gydoma epilepsija</title>
-<link rel="stylesheet" href="assets/style.css?v=44729ce3">
+<link rel="stylesheet" href="assets/style.css?v=218e238f">
 <style>html{background:#f3f5f8}@media(prefers-color-scheme:dark){html:not([data-theme="light"]){background:#0d0e10}}html[data-theme="dark"]{background:#0d0e10}</style>
 </head>
 <body>
@@ -48,6 +48,11 @@
     <div class="kpi"><div class="k-label">Su nesikreipimo pataisa · vertinimas</div><div class="k-val">~26 200</div><div class="k-note">9,1 iš 1000 — pridėjus 2020 m. dydžio spragą (+6,4 %)</div></div>
     <div class="kpi"><div class="k-label">Viršutinė riba · literatūra</div><div class="k-val">~29 000</div><div class="k-note">10,0 iš 1000 — aktyvios epilepsijos paplitimo intervalo viršus</div></div>
   </div>
+  <h3 class="minih">Trys nepriklausomi šaltiniai</h3>
+  <p class="sub">Sergančiuosius registruoja Higienos institutas iš PSDF paslaugų duomenų, vaistų kiekius — VVKT iš didmeninių pardavimų, receptus — Registrų centro e. recepto posistemė. Tai trys atskiros sistemos, todėl jų sugretinimas parodo, kada rodiklis rodo ligą, o kada tik apskaitą. E. recepto stulpelis prasideda 2020 m., nes anksčiau jo aprėptis dar nebuvo pilna.</p>
+  <div class="tablewrap"><table class="data" id="tbl-2sources"></table></div>
+  <p class="note"><b>2020 m. šaltiniai išsiskiria — ir tai pasako, ką reiškia „nesikreipė į gydytoją".</b> Sergančiųjų sumažėjo 1 709 asmenimis, arba 6,4 %, o suvartojimas tais pačiais metais net kilstelėjo — nuo 8,07 iki 8,10 DDD 1000 gyventojų per dieną. Vaistus žmonės gavo, tik diagnozės įrašo tais metais neatsirado. Tai tiksliausias turimas matas, kiek sergančiųjų gali iškristi iš statistikos vien dėl nesikreipimo, ir būtent iš jo imta pataisa aukščiau. Nuo 2020 m. prisideda trečias šaltinis — epilepsijos receptai — ir visi trys juda lygiagrečiai, nė vienas nerodo nei augimo, nei kritimo.</p>
+
   <p class="note"><b>Praktiškai tai reiškia maždaug ±10–15 % neapibrėžtumą, nukreiptą į vieną pusę.</b> Beveik visi neišmatuojami veiksniai skaičių mažina, o vienintelis jį didinantis — remisijoje esantys pacientai — yra mažesnis, nes vienas vizitas per metus dažniausiai reiškia ir tęsiamą gydymą. Vaistų vartojimas spragos beveik nepadidina: kompensuojamąjį receptą išrašo gydytojas ir jame pačiame įrašoma diagnozė, o receptai atnaujinami vidutiniškai 4,6 karto per metus, todėl nuolat vaistus vartojantis žmogus G40 įrašą sukuria beveik neišvengiamai. Visi šio puslapio rodikliai „iš 1000 gyventojų" skaičiuojami nuo išmatuotos apatinės ribos, ne nuo vertinimo.</p>
 
   <div class="twocol">
@@ -136,7 +141,7 @@
     <li><b>Danijos duomenys</b> — medstat.dk (Sundhedsdatastyrelsen), 2025 m., pirminis sektorius. „Asmenų skaičius“ ten reiškia žmones, per metus bent kartą atsiėmusius receptą vaistinėje; ligoninėse suvartoti vaistai (~1,5 % viso kiekio, bet beveik visas kanabidiolis) į jį nepatenka, o asmenų skaičių sumuoti per skirtingas medžiagas negalima — tas pats žmogus vartoja kelis vaistus. Lietuvos DDD skaičiuotas iš didmeninių pardavimų ir apima ir ligonines. Todėl lyginamos dydžių eilės, ne dešimtosios dalys.</li>
     <li><b>ATC kodų neatitikimas.</b> Danijos registre N03AX24 = kanabidiolis, N03AX25 = cenobamatas, N03AX26 = fenfluraminas; VVKT duomenyse cenobamatas žymimas N03AX24. Dėl to Lietuvos ir Danijos duomenys sugretinti pagal veikliosios medžiagos pavadinimą, ne pagal kodą.</li>
     <li><b>Sergančiųjų skaičius</b> — Higienos instituto sveikatos statistikos portalas (Privalomojo sveikatos draudimo IS), diagnozių eilutė „G40-G41 epilepsija, epilepsinė būklė“. Tai <i>ligotumas</i>: asmenys, kuriems tais metais buvo užregistruota diagnozė, o ne tikroji paplitimo statistika. Lyties, amžiaus ir savivaldybių pjūviai sumuojasi į nacionalinį skaičių (24 513 2025 m.). Skaičiaus ribos ir galima paklaida aptartos 1 skyriuje; visi rodikliai „iš 1000 gyventojų“ skaičiuojami nuo šios išmatuotos apatinės ribos.</li>
-    <li><b>Receptai pagal diagnozę</b> — ESPBI e. recepto posistemės duomenys (VĮ Registrų centras, atvirų duomenų rinkinys 2020). Perskaityti visi keturi 2025 m. ketvirčiai — 26 299 441 recepto eilutė — ir atrinkti tie, kurių ATC kodas prasideda N03A. Diagnozė imama iš recepto lauko <code>ligos_kodas</code>. Retos diagnozės (mažiau kaip 10 receptų per ketvirtį) šaltinyje nuasmenintos ir pažymėtos „Neatveriama“, todėl smulkiausios grupės gali būti kiek per mažos. Prekiniai pavadinimai receptuose beveik visada tušti — gydytojai skiria pagal bendrinį pavadinimą.</li>
+    <li><b>Receptai pagal diagnozę</b> — ESPBI e. recepto posistemės duomenys (VĮ Registrų centras, atvirų duomenų rinkinys 2020). Vaistų puslapiuose pateikiama 2020–2025 m. eilutė (24 ketvirčiai, 112,8 mln. recepto eilučių); ji prasideda 2020 m., nes anksčiau e. recepto aprėptis dar augo — 2017 m. I ketvirtį užfiksuota tik apie dešimtadalį vėlesnio lygio, 2019 m. — apie 90 %. Receptuose nurodomas bendrinis, ne prekinis pavadinimas, todėl vaisto puslapio receptų skaičiai apima visus tos veikliosios medžiagos preparatus. Pradinio puslapio pjūviams perskaityti visi keturi 2025 m. ketvirčiai — 26 299 441 recepto eilutė — ir atrinkti tie, kurių ATC kodas prasideda N03A. Diagnozė imama iš recepto lauko <code>ligos_kodas</code>. Retos diagnozės (mažiau kaip 10 receptų per ketvirtį) šaltinyje nuasmenintos ir pažymėtos „Neatveriama“, todėl smulkiausios grupės gali būti kiek per mažos. Prekiniai pavadinimai receptuose beveik visada tušti — gydytojai skiria pagal bendrinį pavadinimą.</li>
   </ul>
   <h3>Šaltiniai</h3>
   <ul>
@@ -150,7 +155,7 @@
   </ul>
 </footer>
 </div>
-<script>window.PAGE={type:"index",base:"",v:"44729ce3"};</script>
-<script src="assets/app.js?v=44729ce3"></script>
+<script>window.PAGE={type:"index",base:"",v:"218e238f"};</script>
+<script src="assets/app.js?v=218e238f"></script>
 </body>
 </html>
