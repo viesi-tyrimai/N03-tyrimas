@@ -305,6 +305,85 @@
     document.getElementById("tbl-regs").innerHTML = rt + "</tbody>";
   }
 
+  /* ---------- augimo išskaidymas (vaisto puslapyje) ---------- */
+  function minus(s) { return String(s).replace(/^-/, "−"); }
+
+  function renderGrowth(D) {
+    var G = D.growth;
+    if (!G || !document.getElementById("sec-growth")) return;
+
+    document.getElementById("kpis-growth").innerHTML = G.kpis.map(function (x) {
+      return '<div class="kpi"><div class="k-label">' + esc(x.l) + '</div><div class="k-val">' +
+        esc(minus(x.v)) + '</div><div class="k-note">' + esc(x.n) + "</div></div>";
+    }).join("");
+
+    /* 1 — medžiagų poslinkis */
+    var max = 0;
+    G.shift.forEach(function (r) { if (Math.abs(r[3]) > max) max = Math.abs(r[3]); });
+    document.getElementById("ch-shift").innerHTML = G.shift.map(function (r) {
+      var w = Math.max(0.6, Math.abs(r[3]) / max * 50), pos = r[3] >= 0;
+      return '<div class="divrow"><span class="dl">' + esc(r[0]) + "</span>" +
+        '<span class="dtrack"><i class="' + (pos ? "pos" : "neg") + '" style="' +
+        (pos ? "left:50%" : "left:" + (50 - w) + "%") + ";width:" + w + '%"></i></span>' +
+        '<span class="dv ' + (pos ? "pos" : "neg") + '">' + (pos ? "+" : "−") +
+        Math.abs(r[3]).toFixed(2).replace(".", ",") + "</span>" +
+        '<span class="dab">' + r[1].toFixed(2).replace(".", ",") + " → " +
+        r[2].toFixed(2).replace(".", ",") + "</span></div>";
+    }).join("") +
+      '<div class="divfoot">Iš viso: ' + G.tot17.toFixed(2).replace(".", ",") + " → " +
+      G.tot25.toFixed(2).replace(".", ",") + " DDD/1000 gyventojų per dieną</div>";
+
+    /* 2 — medžiagos rinka pagal preparatus */
+    var mk = G.market, myears = Object.keys(G.marketTotal).sort();
+    var mser = mk.map(function (b, i) { return { key: b.slug, name: b.name, css: PALETTE[i % PALETTE.length] }; });
+    var moff = {};
+    var lchart = new StackChart(document.getElementById("ch-lev"), {
+      aria: G.sub + " preparatų pardavimai",
+      rows: function () {
+        return myears.map(function (y) {
+          var vals = {};
+          mk.forEach(function (b) { vals[b.slug] = b.byYear[y] || 0; });
+          return { label: y, year: y, vals: vals };
+        });
+      },
+      series: function () { return mser.filter(function (s) { return !moff[s.key]; }); },
+      maxBar: 56,
+      yTick: function (v) { return v >= 1000 ? num(v / 1000) + "k" : num(v); },
+      xLabel: function (r, i, n, narrow) { return (narrow && i % 2 === 1) ? null : r.label + (r.year === "2026" ? "*" : ""); },
+      topLabel: function (r) {
+        var t = 0; mk.forEach(function (b) { t += b.byYear[r.year] || 0; });
+        var mine = mk[0].byYear[r.year] || 0;
+        return t ? pct(mine / t, 0) : null;
+      },
+      tipHtml: function (r, ser, total) {
+        var h = '<div class="t-head">' + r.label + " m." + (r.year === "2026" ? " (I–VI)" : "") + "</div><table>";
+        ser.forEach(function (s) {
+          h += '<tr><td class="n"><span class="dot" style="background:' + cv(s.css) + '"></span>' + esc(s.name) +
+            '</td><td class="v">' + num(r.vals[s.key]) + "</td></tr>";
+        });
+        h += '<tr class="tot"><td>Iš viso</td><td class="v">' + num(total) + "</td></tr>";
+        var t = 0; mk.forEach(function (b) { t += b.byYear[r.year] || 0; });
+        if (t) h += '<tr><td class="n">' + esc(mk[0].name) + " dalis</td><td class=\"v\">" +
+          pct((mk[0].byYear[r.year] || 0) / t) + "</td></tr>";
+        return h + "</table>";
+      }
+    });
+    legendInto(document.getElementById("leg-lev"), mser, moff, function () { lchart.draw(); });
+    lchart.draw();
+
+    /* 3 — rodiklių lentelė */
+    var h = '<thead><tr><th class="l">Rodiklis</th><th>Buvo</th><th>Tapo</th><th>Pokytis</th></tr></thead><tbody>';
+    G.metrics.forEach(function (g) {
+      h += '<tr class="grp"><td class="l" colspan="4">' + esc(g.g) + "</td></tr>";
+      g.rows.forEach(function (r) {
+        var up = /^\+/.test(r[3]);
+        h += '<tr><td class="l">' + esc(r[0]) + "</td><td>" + esc(r[1]) + "</td><td><b>" + esc(r[2]) +
+          '</b></td><td class="' + (up ? "pos" : "neg") + '">' + esc(minus(r[3])) + "</td></tr>";
+      });
+    });
+    document.getElementById("tbl-growth").innerHTML = h + "</tbody>";
+  }
+
   /* ---------- pradinis puslapis ---------- */
   function renderIndex(D) {
     var subs = Object.keys(D.substanceDdd).filter(function (s) {
@@ -623,7 +702,7 @@
   fetch(base + "assets/data.json?v=" + (window.PAGE.v || "")).then(function (r) { return r.json(); }).then(function (D) {
     if (window.PAGE.type === "brand") {
       var b = D.brands.filter(function (x) { return x.slug === window.PAGE.slug; })[0];
-      if (b) renderBrand(D, b);
+      if (b) { renderBrand(D, b); renderGrowth(D); }
     } else {
       renderIndex(D);
       renderEpi(D);

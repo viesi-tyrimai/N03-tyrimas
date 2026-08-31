@@ -7,7 +7,7 @@
 <meta name="color-scheme" content="light dark">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%8A%3C/text%3E%3C/svg%3E">
 <title>Dretacen — pardavimai ir kompensavimas</title>
-<link rel="stylesheet" href="../assets/style.css?v=a12fc7b8">
+<link rel="stylesheet" href="../assets/style.css?v=0134fa55">
 <style>html{background:#f3f5f8}@media(prefers-color-scheme:dark){html:not([data-theme="light"]){background:#0d0e10}}html[data-theme="dark"]{background:#0d0e10}</style>
 </head>
 <body>
@@ -41,6 +41,35 @@
   <p class="sub">PSDF biudžeto išlaidos ir pacientų sumokėtos priemokos už kompensuojamuosius receptus. Skaičius virš stulpelio — pacientų priemokų dalis visoje tų metų apyvartoje.</p>
   <div class="bar"><div class="legend" id="leg-m"></div></div>
   <div class="chart" id="ch-money"><svg></svg><div class="tip"></div></div>
+</section>
+
+<section id="sec-growth">
+  <h2>Kodėl per devynerius metus vartojimas išaugo</h2>
+  <p class="sub">2017 m. buvo parduota 30 237 pakuotės, 2025 m. — 111 528. Toliau — kas iš tikrųjų pasikeitė. Tai duomenų išskaidymas, o ne priežasčių įrodymas: atviri duomenys rodo, <i>kur</i> augimas atsirado, bet ne <i>kodėl</i> gydytojai apsisprendė taip skirti.</p>
+  <div class="kpis" id="kpis-growth"></div>
+
+  <h3 class="minih">1 · Antiepilepsinių vaistų suvartojimas Lietuvoje ne auga, o persiskirsto</h3>
+  <p class="sub">Kiekvienos veikliosios medžiagos suvartojimo pokytis 2017–2025 m., nustatytosiomis paros dozėmis 1000 gyventojų per dieną. Visos grupės rodiklis per tą laiką sumažėjo, o registruotų epilepsija sergančiųjų sumažėjo nuo 27 587 iki 24 513.</p>
+  <div class="divwrap" id="ch-shift"></div>
+  <p class="note"><b>Levetiracetamo prieaugis beveik tiksliai atitinka klonazepamo kritimą.</b> +0,94 prieš −1,31 vienetų. Kartu su lamotriginu (+0,27) tai antrosios kartos vaistų perėmimas iš senųjų — okskarbazepino (−0,39), karbamazepino (−0,18), valproato (−0,15). Dretacen auga rinkoje, kuri pati netraukiasi tik dėl šio pakeitimo.</p>
+
+  <h3 class="minih">2 · Levetiracetamo rinkoje dalis nustojo augti 2019 m.</h3>
+  <p class="sub">Visi Lietuvoje parduodami levetiracetamo preparatai, pakuotės per metus.</p>
+  <div class="bar"><div class="legend" id="leg-lev"></div></div>
+  <div class="chart" id="ch-lev"><svg></svg><div class="tip"></div></div>
+  <p class="note"><b>Rinkos dalį Dretacen laimėjo per pirmuosius dvejus metus ir nuo tada jos nebedidina.</b> 71,6 % (2017) → 83,7 % (2019) → 84,1 % (2025). Ankstyvasis šuolis sutampa su Levetiracetam Teva pasitraukimu: 4 643 pakuotės 2017 m., 0 nuo 2022 m. Nuo 2019 m. Dretacen auga tiesiog tiek, kiek auga visa levetiracetamo rinka — nuo 42 220 iki 132 626 pakuočių.</p>
+
+  <h3 class="minih">3 · Daugiau pacientų, o ne didesnės dozės</h3>
+  <div class="tablewrap"><table class="data" id="tbl-growth"></table></div>
+  <p class="note"><b>Vienam pacientui tenkantis kiekis nedidėja.</b> Pakuočių viename recepte — 6,5 ir 6,6; vidutinis gramų kiekis pakuotėje net kiek sumažėjo (18,3 → 17,3 g), nes daugiau parduodama silpnesnių stiprumų. Augimas ateina iš receptų ir pacientų skaičiaus. Kartu krenta vieno recepto kaina PSDF biudžetui (38,27 → 28,85 €), o paciento priemoka auga (6,32 → 8,52 €) — pigesnis vaistas leidžia gydyti daugiau žmonių už panašius pinigus, tačiau didesnę dalį sumoka pats pacientas.</p>
+
+  <h3 class="minih">Ko šie duomenys neįrodo</h3>
+  <ul class="plain">
+    <li>Gydytojų apsisprendimo motyvų — duomenyse nėra nei klinikinių priežasčių, nei rinkodaros.</li>
+    <li>Kainodaros sprendimų: matoma tik kompensuojamoji apyvarta ir tik nuo 2022 m.</li>
+    <li>Ar pakeitimas klinikiškai pagrįstas: levetiracetamas iš tikrųjų turi mažiau sąveikų su kitais vaistais nei karbamazepinas ar valproatas, bet to iš pardavimų duomenų nematyti.</li>
+    <li>Tikrojo suvartojimo: skaičiuojami didmeniniai pardavimai vaistinėms ir ligoninėms, o ne pacientams išduotos pakuotės.</li>
+  </ul>
 </section>
 
 <section>
@@ -81,7 +110,7 @@
   </ul>
 </footer>
 </div>
-<script>window.PAGE={type:"brand",slug:"dretacen",base:"../",v:"a12fc7b8"};</script>
-<script src="../assets/app.js?v=a12fc7b8"></script>
+<script>window.PAGE={type:"brand",slug:"dretacen",base:"../",v:"0134fa55"};</script>
+<script src="../assets/app.js?v=0134fa55"></script>
 </body>
 </html>
